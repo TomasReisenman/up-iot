@@ -1,0 +1,35 @@
+# PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
+libdeps/
+.build/
+
+# VScode
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Python cache (PIO uses Python)
+__pycache__/
+*.pyc
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Env files
+.env
+
+# Wokwi (keep config, ignore temp if any)
+wokwi-build/
+wokwi-logs/
+
+# Optional: keep diagram + config
+# DO NOT ignore:
+# wokwi.toml
+# diagram.json
+# libraries.txt

@@ -1,0 +1,225 @@
+[
+    {
+        "id": "df9aedcc003f1b7e",
+        "type": "tab",
+        "label": "Conexion_Wok_Node",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4de2c567c17a85c0",
+        "type": "mqtt in",
+        "z": "df9aedcc003f1b7e",
+        "name": "",
+        "topic": "Grupo1/pulsoloco1",
+        "qos": "2",
+        "datatype": "auto -detect",
+        "broker": "151cfa1355cf0632",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 280,
+        "wires": [
+            [
+                "055ca9032f75509d",
+                "0a906ac9a0841430",
+                "8ecdc7f1c5cdbfc0"
+            ]
+        ]
+    },
+    {
+        "id": "8ecdc7f1c5cdbfc0",
+        "type": "switch",
+        "z": "df9aedcc003f1b7e",
+        "name": "Medida > 90?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "90",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 420,
+        "y": 380,
+        "wires": [
+            [
+                "9fedbba7a36d8bb2"
+            ]
+        ]
+    },
+    {
+        "id": "055ca9032f75509d",
+        "type": "debug",
+        "z": "df9aedcc003f1b7e",
+        "name": "Debug: Valor Anormal",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "9fedbba7a36d8bb2",
+        "type": "change",
+        "z": "df9aedcc003f1b7e",
+        "name": "Formatear Alarma",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "'¡ALERTA! Medida detectada: ' & payload",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 260,
+        "wires": [
+            [
+                "0cceb9be1854f491",
+                "7cb8a4f6a97ea4d3"
+            ]
+        ]
+    },
+    {
+        "id": "0cceb9be1854f491",
+        "type": "ui_toast",
+        "z": "df9aedcc003f1b7e",
+        "position": "top right",
+        "displayTime": "8",
+        "highlight": "red",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "ENTENDIDO",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "SISTEMA BIOMÉTRICO",
+        "name": "Alarma Dashboard",
+        "x": 790,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "7cb8a4f6a97ea4d3",
+        "type": "debug",
+        "z": "df9aedcc003f1b7e",
+        "name": "Debug: Salida Final",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "0a906ac9a0841430",
+        "type": "ui_gauge",
+        "z": "df9aedcc003f1b7e",
+        "name": "",
+        "group": "5f24cc4517fa26b9",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "130",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 390,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "151cfa1355cf0632",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.mqtt.cool",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "5f24cc4517fa26b9",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "74a1722bf52a3d0f",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "74a1722bf52a3d0f",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "9dfecf5a6594deb1",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node -red -dashboard": "3.6.6"
+        }
+    }
+]
