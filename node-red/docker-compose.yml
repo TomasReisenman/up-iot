@@ -1,0 +1,49 @@
+services:
+  mqtt:
+    image: eclipse-mosquitto
+    container_name: mqtt
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    restart: unless-stopped
+
+  influxdb:
+    image: influxdb:2.7
+    container_name: influxdb
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=${INFLUXDB_USERNAME}
+      - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_PASSWORD}
+      - DOCKER_INFLUXDB_INIT_ORG=${INFLUXDB_ORG}
+      - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUXDB_BUCKET}
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${INFLUXDB_TOKEN}
+    restart: unless-stopped
+
+  node-red:
+    build: ./nodered
+    container_name: node-red
+    ports:
+      - "1880:1880"
+    volumes:
+      - node_red_data:/data
+      - ./nodered/settings.js:/data/settings.js
+      - ./nodered/flows.json:/data/flows.json
+      - ./nodered/flows_cred.json:/data/flows_cred.json
+    environment:
+      - NODE_OPTIONS=--dns-result-order=ipv4first
+    depends_on:
+      - mqtt
+      - influxdb
+    restart: unless-stopped
+
+volumes:
+  node_red_data:
+  influxdb_data:

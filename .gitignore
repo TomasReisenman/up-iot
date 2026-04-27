@@ -18,18 +18,36 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
+# Secretos / config local
+.env
+
 # Logs
 *.log
 
-# Env files
-.env
+# Node-RED runtime / backups
+node-red/nodered/.flows.json.backup
+
+# Mosquitto runtime
+node-red/mosquitto/data/
+node-red/mosquitto/log/
 
 # Wokwi (keep config, ignore temp if any)
 wokwi-build/
 wokwi-logs/
 
-# Optional: keep diagram + config
-# DO NOT ignore:
-# wokwi.toml
-# diagram.json
-# libraries.txt
+# PlatformIO / wokwi build output
+wokwi/.pio/
+wokwi/.vscode/.browse.c_cpp.db*
+wokwi/.vscode/c_cpp_properties.json
+wokwi/.vscode/launch.json
+wokwi/.vscode/ipch/
+
+# claude-mem
+CLAUDE.md
+**/CLAUDE.md
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+*.swp
+*~

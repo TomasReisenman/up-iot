@@ -1,0 +1,1070 @@
+[
+    {
+        "id": "tab_biometrico",
+        "type": "tab",
+        "label": "Flujo Biom\u00e9trico con Debug",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "flow1",
+        "type": "tab",
+        "label": "MQTT Sensors Flow",
+        "disabled": false
+    },
+    {
+        "id": "6bb90353dcc81fa1",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "99f54a0d0cd803c1",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "6bb90353dcc81fa1",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7c723f4b7f72c37c",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#dfaf01",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#dfaf01",
+                    "edited": true
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#dfaf01",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#fed12e",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#dfaf01",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "addfbf86eb0143df",
+        "type": "mqtt-broker",
+        "name": "MQTT (EMQX Public)",
+        "broker": "broker.emqx.io",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "fd9ac08b0e8c50d6",
+        "type": "ui_tab",
+        "name": "Monitor Biom\u00e9trico",
+        "icon": "fa-heartbeat",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "group_sensors",
+        "type": "ui_group",
+        "name": "Sensores",
+        "tab": "fd9ac08b0e8c50d6",
+        "order": 1,
+        "disp": true,
+        "width": "14",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "group_ollama",
+        "type": "ui_group",
+        "name": "Pron\u00f3stico IA",
+        "tab": "fd9ac08b0e8c50d6",
+        "order": 3,
+        "disp": true,
+        "width": "14",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "group_history",
+        "type": "ui_group",
+        "name": "Hist\u00f3rico",
+        "tab": "fd9ac08b0e8c50d6",
+        "order": 2,
+        "disp": true,
+        "width": "14",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "influxdb_config",
+        "type": "influxdb",
+        "hostname": "us-west-2-1.aws.cloud2.influxdata.com",
+        "port": "443",
+        "protocol": "https",
+        "database": "iot",
+        "name": "InfluxDB",
+        "usetls": true,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "https://us-west-2-1.aws.cloud2.influxdata.com",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "n_inject_normal",
+        "type": "inject",
+        "z": "tab_biometrico",
+        "name": "Pulso Normal (75)",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "75",
+        "payloadType": "num",
+        "x": 130,
+        "y": 120,
+        "wires": [
+            [
+                "n_debug_directo",
+                "n_switch",
+                "982e963ea8c68abf"
+            ]
+        ]
+    },
+    {
+        "id": "n_inject_anormal",
+        "type": "inject",
+        "z": "tab_biometrico",
+        "name": "Pulso ANORMAL (120)",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "120",
+        "payloadType": "num",
+        "x": 140,
+        "y": 240,
+        "wires": [
+            [
+                "n_debug_directo",
+                "n_switch",
+                "982e963ea8c68abf"
+            ]
+        ]
+    },
+    {
+        "id": "n_switch",
+        "type": "switch",
+        "z": "tab_biometrico",
+        "name": "Medida > 100?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "100",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 400,
+        "y": 240,
+        "wires": [
+            [
+                "n_change_msg"
+            ]
+        ]
+    },
+    {
+        "id": "n_debug_directo",
+        "type": "debug",
+        "z": "tab_biometrico",
+        "name": "Debug: Valor Anormal",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "n_change_msg",
+        "type": "change",
+        "z": "tab_biometrico",
+        "name": "Formatear Alarma",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "'\u00a1ALERTA! Medida detectada: ' & payload",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 590,
+        "y": 120,
+        "wires": [
+            [
+                "n_ui_toast",
+                "n_debug_final"
+            ]
+        ]
+    },
+    {
+        "id": "n_debug_final",
+        "type": "debug",
+        "z": "tab_biometrico",
+        "name": "Debug: Salida Final",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "982e963ea8c68abf",
+        "type": "ui_gauge",
+        "z": "tab_biometrico",
+        "name": "",
+        "group": "99f54a0d0cd803c1",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 370,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "n_ui_toast",
+        "type": "ui_toast",
+        "z": "tab_biometrico",
+        "position": "top right",
+        "displayTime": "8",
+        "highlight": "red",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "ENTENDIDO",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "SISTEMA BIOM\u00c9TRICO",
+        "name": "Alarma Dashboard",
+        "x": 770,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "mqtt_in",
+        "type": "mqtt in",
+        "z": "flow1",
+        "name": "Subscribe Sensors",
+        "topic": "biometrico/+",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "addfbf86eb0143df",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 130,
+        "y": 340,
+        "wires": [
+            [
+                "fn_extract"
+            ]
+        ]
+    },
+    {
+        "id": "fn_extract",
+        "type": "function",
+        "z": "flow1",
+        "name": "Extract Topic",
+        "func": "node.log(msg.topic);\nconst parts = msg.topic.split(\"/\");\nmsg.topic = parts[1];\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 340,
+        "wires": [
+            [
+                "join",
+                "switch_sensors",
+                "fn_influx_format"
+            ]
+        ]
+    },
+    {
+        "id": "switch_sensors",
+        "type": "switch",
+        "z": "flow1",
+        "name": "Route Sensors",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "pulso",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "temperatura",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 540,
+        "y": 240,
+        "wires": [
+            [
+                "gauge_pulso"
+            ],
+            [
+                "gauge_temp"
+            ]
+        ]
+    },
+    {
+        "id": "gauge_pulso",
+        "type": "ui_gauge",
+        "z": "flow1",
+        "name": "Pulse Gauge",
+        "group": "group_sensors",
+        "order": 1,
+        "width": "7",
+        "height": "5",
+        "gtype": "gage",
+        "title": "Pulso",
+        "label": "bpm",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "200",
+        "colors": [
+            "#7E6B9E",
+            "#6B9E6B",
+            "#B57A5C"
+        ],
+        "seg1": "60",
+        "seg2": "100",
+        "diff": false,
+        "className": "gauge-pulso",
+        "x": 750,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "gauge_temp",
+        "type": "ui_gauge",
+        "z": "flow1",
+        "name": "Body Temperature Gauge",
+        "group": "group_sensors",
+        "order": 2,
+        "width": "7",
+        "height": "5",
+        "gtype": "gage",
+        "title": "Temperatura",
+        "label": "\u00b0C",
+        "format": "{{value}}",
+        "min": "30",
+        "max": "45",
+        "colors": [
+            "#5C8A9E",
+            "#6B9E6B",
+            "#9E6B6B"
+        ],
+        "seg1": "36",
+        "seg2": "38",
+        "diff": false,
+        "className": "gauge-temp",
+        "x": 790,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "join",
+        "type": "join",
+        "z": "flow1",
+        "name": "Join sensors",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "",
+        "joinerType": "str",
+        "useparts": true,
+        "accumulate": true,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 550,
+        "y": 340,
+        "wires": [
+            [
+                "fn_format_rundata",
+                "fn_buffer_lstm"
+            ]
+        ]
+    },
+    {
+        "id": "ui_css_template",
+        "type": "ui_template",
+        "z": "flow1",
+        "group": "group_sensors",
+        "name": "Custom CSS",
+        "order": 0,
+        "width": "14",
+        "height": "1",
+        "format": "<style>\n    /* Variables de colores - Escala de grises */\n    :root {\n        --primary-color: #1a1a1a;\n        --secondary-color: #2d2d2d;\n        --accent-color: #404040;\n        --bg-gradient-start: #0a0a0a;\n        --bg-gradient-mid: #1a1a1a;\n        --bg-gradient-end: #121212;\n        --card-bg: rgba(255, 255, 255, 0.05);\n        --card-border: rgba(255, 255, 255, 0.08);\n        --text-primary: #ffffff;\n        --text-secondary: rgba(255, 255, 255, 0.6);\n    }\n\n    /* Fondo principal del dashboard */\n    #nr-dashboard-sidebar,\n    .md-sidenav-left {\n        background: linear-gradient(180deg, var(--bg-gradient-start), var(--bg-gradient-mid), var(--bg-gradient-end)) !important;\n    }\n\n    .nr-dashboard-theme {\n        background: linear-gradient(180deg, var(--bg-gradient-start), var(--bg-gradient-mid), var(--bg-gradient-end)) !important;\n    }\n\n    /* Cards de grupos */\n    .nr-dashboard-cardpanel {\n        background: var(--card-bg) !important;\n        backdrop-filter: blur(10px) !important;\n        border-radius: 12px !important;\n        border: 1px solid var(--card-border) !important;\n        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;\n        margin: 12px !important;\n        transition: transform 0.3s ease, box-shadow 0.3s ease !important;\n    }\n\n    .nr-dashboard-cardpanel:hover {\n        transform: translateY(-2px) !important;\n        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5) !important;\n        border-color: rgba(255, 255, 255, 0.12) !important;\n    }\n\n    /* Titulos de grupos */\n    .nr-dashboard-cardtitle {\n        color: #1a1a1a !important;\n        font-weight: 600 !important;\n        font-size: 1.1em !important;\n        text-transform: uppercase !important;\n        letter-spacing: 3px !important;\n        padding: 16px 20px !important;\n        border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;\n        background: linear-gradient(90deg, rgba(0, 0, 0, 0.03), transparent) !important;\n    }\n\n    /* Gauges */\n    .nr-dashboard-gauge {\n        padding: 10px 10px 0 10px !important;\n        overflow: visible !important;\n    }\n\n    .nr-dashboard-gauge svg {\n        overflow: visible !important;\n    }\n\n    .nr-dashboard-widget {\n        overflow: visible !important;\n    }\n\n    .nr-dashboard-widget-contents {\n        overflow: visible !important;\n    }\n\n    md-card {\n        overflow: visible !important;\n    }\n\n    .nr-dashboard-cardpanel layout-row {\n        overflow: visible !important;\n    }\n\n    .nr-dashboard-gauge text {\n        fill: #333333 !important;\n        font-family: 'Roboto', 'Segoe UI', sans-serif !important;\n    }\n\n    .nr-dashboard-gauge .gauge-title {\n        font-size: 13px !important;\n        font-weight: 500 !important;\n        text-transform: uppercase !important;\n        letter-spacing: 2px !important;\n        fill: #555555 !important;\n    }\n\n    .nr-dashboard-gauge .gauge-value {\n        font-size: 26px !important;\n        font-weight: 400 !important;\n        fill: #1a1a1a !important;\n    }\n\n    /* Texto UI */\n    .nr-dashboard-text {\n        color: #333333 !important;\n    }\n\n    .nr-dashboard-textvalue {\n        color: #333333 !important;\n    }\n\n    /* Respuesta de Ollama */\n    .ollama-response {\n        background: #e8e8e8 !important;\n        padding: 24px 30px !important;\n        border-radius: 10px !important;\n        font-size: 22px !important;\n        font-weight: 500 !important;\n        color: #1a1a1a !important;\n        text-align: center !important;\n        border-left: 4px solid #888888 !important;\n        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;\n        animation: fadeIn 0.5s ease !important;\n        letter-spacing: 0.3px !important;\n        margin: 10px !important;\n        line-height: 1.4 !important;\n    }\n\n    @keyframes fadeIn {\n        from { opacity: 0; transform: translateY(10px); }\n        to { opacity: 1; transform: translateY(0); }\n    }\n\n    /* Toolbar */\n    .nr-dashboard-toolbar {\n        background: linear-gradient(90deg, #1a1a1a, #252525) !important;\n        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4) !important;\n    }\n\n    /* Iconos y navegacion */\n    .md-button.md-icon-button md-icon {\n        color: var(--text-primary) !important;\n    }\n\n    /* Scrollbar personalizado */\n    ::-webkit-scrollbar {\n        width: 6px;\n        height: 6px;\n    }\n\n    ::-webkit-scrollbar-track {\n        background: rgba(255, 255, 255, 0.02);\n    }\n\n    ::-webkit-scrollbar-thumb {\n        background: rgba(255, 255, 255, 0.15);\n        border-radius: 3px;\n    }\n\n    ::-webkit-scrollbar-thumb:hover {\n        background: rgba(255, 255, 255, 0.25);\n    }\n\n    /* Labels de grupos */\n    .nr-dashboard-groupname {\n        color: #555555 !important;\n    }\n\n    /* Widget containers */\n    .nr-dashboard-widget {\n        transition: all 0.3s ease !important;\n    }\n\n    /* Mejoras para mobile */\n    @media (max-width: 600px) {\n        .nr-dashboard-cardpanel {\n            margin: 8px !important;\n            border-radius: 10px !important;\n        }\n        \n        .ollama-response {\n            font-size: 15px !important;\n            padding: 16px !important;\n        }\n    }\n</style>\n<div class=\"dashboard-header\">\n    Monitor Biom\u00e9trico IoT\n</div>\n<style>\n    .dashboard-header {\n        text-align: center;\n        font-size: 12px;\n        color: #666666;\n        padding: 10px;\n        letter-spacing: 3px;\n        text-transform: uppercase;\n        font-weight: 400;\n    }\n</style>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "resendOnRefresh": false,
+        "templateScope": "global",
+        "className": "",
+        "x": 150,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "inject_chart_refresh",
+        "type": "inject",
+        "z": "flow1",
+        "name": "Refresh Charts",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "30",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 740,
+        "wires": [
+            [
+                "influx_query"
+            ]
+        ]
+    },
+    {
+        "id": "fn_chart_format",
+        "type": "function",
+        "z": "flow1",
+        "name": "Format Charts",
+        "func": "const results = msg.payload;\nif (!Array.isArray(results) || results.length === 0) return null;\n\nconst pulso = [], temp = [];\n\nresults.forEach(r => {\n    const point = { x: new Date(r._time).getTime(), y: r._value };\n    if (r.sensor === \"pulso\") pulso.push(point);\n    else if (r.sensor === \"temperatura\") temp.push(point);\n});\n\nconst m1 = { payload: [{ series: [\"Pulso\"], data: [pulso], labels: [\"\"] }] };\nconst m2 = { payload: [{ series: [\"Temperatura\"], data: [temp], labels: [\"\"] }] };\n\nreturn [m1, m2];",
+        "outputs": 2,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 740,
+        "wires": [
+            [
+                "chart_pulso"
+            ],
+            [
+                "chart_temp"
+            ]
+        ]
+    },
+    {
+        "id": "chart_pulso",
+        "type": "ui_chart",
+        "z": "flow1",
+        "name": "Pulse Chart",
+        "group": "group_history",
+        "order": 1,
+        "width": "14",
+        "height": "5",
+        "label": "Pulso (bpm)",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Sin datos",
+        "dot": true,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": true,
+        "useUTC": false,
+        "colors": [
+            "#5C8A9E",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 850,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "chart_temp",
+        "type": "ui_chart",
+        "z": "flow1",
+        "name": "Temperature Chart",
+        "group": "group_history",
+        "order": 2,
+        "width": "14",
+        "height": "6",
+        "label": "Temperatura (\u00b0C)",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Sin datos",
+        "dot": true,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": true,
+        "useUTC": false,
+        "colors": [
+            "#5C8A9E",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 870,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fn_influx_format",
+        "type": "function",
+        "z": "flow1",
+        "name": "Format InfluxDB",
+        "func": "msg.measurement = \"sensors\";\nmsg.payload = [{ value: Number(msg.payload) }, { sensor: msg.topic }];\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 400,
+        "wires": [
+            [
+                "influxdb_out"
+            ]
+        ]
+    },
+    {
+        "id": "influxdb_out",
+        "type": "influxdb out",
+        "z": "flow1",
+        "influxdb": "influxdb_config",
+        "name": "Write InfluxDB",
+        "measurement": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "08c61a8e218e9ccf",
+        "bucket": "up-iot",
+        "x": 780,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "influx_query",
+        "type": "influxdb in",
+        "z": "flow1",
+        "influxdb": "influxdb_config",
+        "name": "Query Sensors",
+        "query": "from(bucket: \"up-iot\") |> range(start: -1h) |> filter(fn: (r) => r._measurement == \"sensors\") |> filter(fn: (r) => r._field == \"value\") |> sort(columns: [\"_time\"])",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "08c61a8e218e9ccf",
+        "x": 400,
+        "y": 740,
+        "wires": [
+            [
+                "fn_chart_format"
+            ]
+        ]
+    },
+    {
+        "id": "c7f333a3df72780c",
+        "type": "neuralnet",
+        "z": "flow1",
+        "name": "Feedforward",
+        "learningRate": 0.3,
+        "errorThresh": 0.005,
+        "iterations": 20000,
+        "log": false,
+        "logPeriod": 10,
+        "nntype": 0,
+        "x": 1040,
+        "y": 220,
+        "wires": [
+            [
+                "fn_ff_router"
+            ]
+        ]
+    },
+    {
+        "id": "train_inject_nn",
+        "type": "inject",
+        "z": "flow1",
+        "name": "Entrenar al iniciar",
+        "props": [
+            {
+                "p": "trainData",
+                "v": "[{\"input\":{\"pulso\":0.70,\"temp\":0.365},\"output\":{\"peligro\":0}},{\"input\":{\"pulso\":0.75,\"temp\":0.36},\"output\":{\"peligro\":0}},{\"input\":{\"pulso\":0.80,\"temp\":0.37},\"output\":{\"peligro\":0}},{\"input\":{\"pulso\":0.65,\"temp\":0.368},\"output\":{\"peligro\":0}},{\"input\":{\"pulso\":0.90,\"temp\":0.372},\"output\":{\"peligro\":0}},{\"input\":{\"pulso\":0.85,\"temp\":0.365},\"output\":{\"peligro\":0}},{\"input\":{\"pulso\":1.30,\"temp\":0.37},\"output\":{\"peligro\":1}},{\"input\":{\"pulso\":0.75,\"temp\":0.40},\"output\":{\"peligro\":1}},{\"input\":{\"pulso\":0.45,\"temp\":0.365},\"output\":{\"peligro\":1}},{\"input\":{\"pulso\":1.40,\"temp\":0.41},\"output\":{\"peligro\":1}},{\"input\":{\"pulso\":0.35,\"temp\":0.33},\"output\":{\"peligro\":1}},{\"input\":{\"pulso\":1.50,\"temp\":0.39},\"output\":{\"peligro\":1}}]",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "x": 830,
+        "y": 120,
+        "wires": [
+            [
+                "c7f333a3df72780c"
+            ]
+        ]
+    },
+    {
+        "id": "fn_format_rundata",
+        "type": "function",
+        "z": "flow1",
+        "name": "Format \u2192 runData",
+        "func": "const data = msg.payload;\nnode.warn('FF recibi\u00f3: ' + JSON.stringify(data) + ' trained=' + flow.get('ff_trained'));\nconst pulso = Number(data.pulso);\nconst temperatura = Number(data.temperatura);\n\nif (isNaN(pulso) || isNaN(temperatura)) return null;\nif (!flow.get('ff_trained')) return null;\n\nmsg.runData = {\n    pulso: pulso / 100,\n    temp: temperatura / 100\n};\n\nmsg.originalData = { pulso, temperatura };\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "flow.set('ff_trained', false);",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 300,
+        "wires": [
+            [
+                "c7f333a3df72780c"
+            ]
+        ]
+    },
+    {
+        "id": "nn_lstm",
+        "type": "function",
+        "z": "flow1",
+        "name": "LSTM TimeStep",
+        "func": "const brainjs = global.get('brainjs');\n\nif (msg.trainData) {\n    const net = new brainjs.recurrent.LSTMTimeStep({\n        inputSize: 2,\n        hiddenLayers: [10],\n        outputSize: 2\n    });\n    node.status({fill:'yellow',shape:'dot',text:'Entrenando...'});\n\n    try {\n        const res = net.train(msg.trainData, {\n            iterations: 500,\n            errorThresh: 0.01,\n            learningRate: 0.005,\n            log: false\n        });\n        flow.set('lstm_net_json', net.toJSON());\n        node.status({fill:'green',shape:'dot',text:'Entrenada (err=' + res.error.toFixed(4) + ')'});\n        msg.net = true;\n        msg.result = res;\n        return msg;\n    } catch(e) {\n        node.error('LSTM train: ' + e.message);\n        node.status({fill:'red',shape:'dot',text:'Error'});\n        return null;\n    }\n}\n\nif (msg.runData) {\n    const netJSON = flow.get('lstm_net_json');\n    if (!netJSON) return null;\n\n    try {\n        const net = new brainjs.recurrent.LSTMTimeStep();\n        net.fromJSON(netJSON);\n        msg.decision = net.run(msg.runData);\n        return msg;\n    } catch(e) {\n        node.error('LSTM run: ' + e.message);\n        return null;\n    }\n}\n\nreturn null;",
+        "outputs": 1,
+        "timeout": "120",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 380,
+        "wires": [
+            [
+                "fn_lstm_router"
+            ]
+        ]
+    },
+    {
+        "id": "fn_buffer_lstm",
+        "type": "function",
+        "z": "flow1",
+        "name": "Buffer \u2192 LSTM",
+        "func": "const data = msg.payload;\nconst pulso = Number(data.pulso);\nconst temperatura = Number(data.temperatura);\n\nif (isNaN(pulso) || isNaN(temperatura)) return null;\nif (!flow.get('lstm_trained')) return null;\n\nconst buffer = flow.get('lstm_buffer') || [];\nbuffer.push({ pulso: pulso / 200, temp: temperatura / 50 });\n\nif (buffer.length > 4) buffer.shift();\nflow.set('lstm_buffer', buffer);\n\nif (buffer.length < 3) return null;\n\nmsg.runData = buffer.slice();\nmsg.originalData = { pulso, temperatura };\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "flow.set('lstm_buffer', []);\nflow.set('lstm_trained', false);",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 360,
+        "wires": [
+            [
+                "nn_lstm"
+            ]
+        ]
+    },
+    {
+        "id": "fn_ff_result",
+        "type": "function",
+        "z": "flow1",
+        "name": "FF \u2192 Panel",
+        "func": "const decision = msg.decision;\nif (!decision || decision.peligro === undefined) return null;\n\nconst peligro = decision.peligro;\nconst orig = msg.originalData || {};\nconst pct = (peligro * 100).toFixed(1);\nconst estado = peligro >= 0.5 ? 'PELIGRO' : 'NORMAL';\nconst color = peligro >= 0.5 ? '#c0392b' : '#27ae60';\n\nmsg.payload = '<div style=\"text-align:center;padding:10px\">' +\n  '<span style=\"font-size:28px;font-weight:bold;color:' + color + '\">' + estado + '</span><br>' +\n  '<span style=\"font-size:18px;color:#555\">Confianza: ' + pct + '%</span><br>' +\n  '<span style=\"font-size:14px;color:#888\">Pulso: ' + (orig.pulso || '?') + ' bpm | Temp: ' + (orig.temperatura || '?') + '\u00b0C</span>' +\n  '</div>';\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1400,
+        "y": 220,
+        "wires": [
+            [
+                "ui_panel_ff"
+            ]
+        ]
+    },
+    {
+        "id": "fn_lstm_result",
+        "type": "function",
+        "z": "flow1",
+        "name": "LSTM \u2192 Panel",
+        "func": "const decision = msg.decision;\nif (decision === undefined || decision === null) return null;\n\nlet pulsoPred, tempPred;\nif (typeof decision === 'object' && decision.pulso !== undefined) {\n    pulsoPred = Math.round(decision.pulso * 200);\n    tempPred = (decision.temp * 50).toFixed(1);\n} else {\n    const val = (typeof decision === 'number') ? decision : Number(decision);\n    if (isNaN(val)) return null;\n    pulsoPred = Math.round(val * 200);\n    tempPred = null;\n}\n\nconst orig = msg.originalData || {};\nconst alertaP = (pulsoPred > 100 || pulsoPred < 60);\nconst alertaT = tempPred !== null && (Number(tempPred) > 38 || Number(tempPred) < 35.5);\nconst alerta = alertaP || alertaT;\nconst color = alerta ? '#e67e22' : '#2980b9';\nconst icon = alerta ? '\\u26a0' : '\\u2192';\n\nlet html = '<div style=\"text-align:center;padding:10px\">' +\n  '<span style=\"font-size:22px;color:' + color + '\">' + icon + ' Pr\\u00f3xima lectura estimada</span><br>' +\n  '<span style=\"font-size:28px;font-weight:bold;color:#333\">Pulso: ' + pulsoPred + ' bpm</span><br>';\n\nif (tempPred !== null) {\n    html += '<span style=\"font-size:28px;font-weight:bold;color:#333\">Temp: ' + tempPred + ' \\u00b0C</span><br>';\n}\n\nhtml += '<span style=\"font-size:14px;color:#888\">Actual: ' + (orig.pulso || '?') + ' bpm | Temp: ' + (orig.temperatura || '?') + '\\u00b0C</span>' +\n  '</div>';\n\nmsg.payload = html;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1410,
+        "y": 380,
+        "wires": [
+            [
+                "ui_panel_lstm"
+            ]
+        ]
+    },
+    {
+        "id": "ui_panel_ff",
+        "type": "ui_template",
+        "z": "flow1",
+        "group": "group_ollama",
+        "name": "Panel Feedforward",
+        "order": 1,
+        "width": "7",
+        "height": "4",
+        "format": "<div class=\"nn-panel\">\n  <div class=\"nn-title\">RED FEEDFORWARD</div>\n  <div class=\"nn-subtitle\">Clasificaci\u00f3n instant\u00e1nea</div>\n  <div ng-bind-html=\"msg.payload\"></div>\n</div>\n<style>\n.nn-panel { padding: 8px; }\n.nn-title { font-size: 13px; font-weight: 600; letter-spacing: 2px; color: #555; text-transform: uppercase; }\n.nn-subtitle { font-size: 11px; color: #999; margin-bottom: 8px; }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1590,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ui_panel_lstm",
+        "type": "ui_template",
+        "z": "flow1",
+        "group": "group_ollama",
+        "name": "Panel LSTM",
+        "order": 2,
+        "width": "7",
+        "height": "4",
+        "format": "<div class=\"nn-panel\">\n  <div class=\"nn-title\">RED LSTM</div>\n  <div class=\"nn-subtitle\">Predicci\u00f3n temporal</div>\n  <div ng-bind-html=\"msg.payload\"></div>\n</div>\n<style>\n.nn-panel { padding: 8px; }\n.nn-title { font-size: 13px; font-weight: 600; letter-spacing: 2px; color: #555; text-transform: uppercase; }\n.nn-subtitle { font-size: 11px; color: #999; margin-bottom: 8px; }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1590,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fn_ff_router",
+        "type": "function",
+        "z": "flow1",
+        "name": "FF Router",
+        "func": "node.warn('FF Router recibi\u00f3: ' + JSON.stringify({net:!!msg.net, decision:msg.decision, runData:msg.runData}));\nif (msg.net) {\n    flow.set('ff_trained', true);\n    node.status({fill:'green',shape:'dot',text:'Entrenada'});\n    return null;\n}\nif (msg.decision) {\n    return msg;\n}\nreturn null;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 220,
+        "wires": [
+            [
+                "fn_ff_result"
+            ]
+        ]
+    },
+    {
+        "id": "fn_lstm_router",
+        "type": "function",
+        "z": "flow1",
+        "name": "LSTM Router",
+        "func": "if (msg.net) {\n    flow.set('lstm_trained', true);\n    node.status({fill:'green',shape:'dot',text:'Entrenada'});\n    node.warn('LSTM entrenada OK');\n    return null;\n}\nif (msg.decision !== undefined && msg.decision !== null) {\n    return msg;\n}\nreturn null;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1230,
+        "y": 380,
+        "wires": [
+            [
+                "fn_lstm_result"
+            ]
+        ]
+    },
+    {
+        "id": "inject_lstm_start",
+        "type": "inject",
+        "z": "flow1",
+        "name": "Iniciar entrenamiento LSTM",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 430,
+        "y": 520,
+        "wires": [
+            [
+                "influx_query_lstm_train"
+            ]
+        ]
+    },
+    {
+        "id": "influx_query_lstm_train",
+        "type": "influxdb in",
+        "z": "flow1",
+        "influxdb": "influxdb_config",
+        "name": "Query Sensores Hist\u00f3rico",
+        "query": "from(bucket: \"up-iot\") |> range(start: -24h) |> filter(fn: (r) => r._measurement == \"sensors\") |> filter(fn: (r) => r._field == \"value\") |> sort(columns: [\"_time\"]) |> tail(n: 200)",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "08c61a8e218e9ccf",
+        "x": 690,
+        "y": 520,
+        "wires": [
+            [
+                "fn_build_lstm_train"
+            ]
+        ]
+    },
+    {
+        "id": "fn_build_lstm_train",
+        "type": "function",
+        "z": "flow1",
+        "name": "Build LSTM TrainData",
+        "func": "const results = msg.payload;\nconst WINDOW = 4;\nconst MIN_SEQUENCES = 6;\nconst MAX_SEQUENCES = 80;\n\nconst DEFAULT_TRAIN = [\n    [{pulso:0.35,temp:0.730},{pulso:0.36,temp:0.732},{pulso:0.35,temp:0.730},{pulso:0.355,temp:0.731}],\n    [{pulso:0.40,temp:0.734},{pulso:0.39,temp:0.735},{pulso:0.41,temp:0.734},{pulso:0.40,temp:0.736}],\n    [{pulso:0.31,temp:0.726},{pulso:0.32,temp:0.727},{pulso:0.31,temp:0.726},{pulso:0.315,temp:0.726}],\n    [{pulso:0.375,temp:0.732},{pulso:0.38,temp:0.733},{pulso:0.37,temp:0.732},{pulso:0.375,temp:0.732}],\n    [{pulso:0.325,temp:0.730},{pulso:0.345,temp:0.731},{pulso:0.36,temp:0.730},{pulso:0.375,temp:0.731}],\n    [{pulso:0.39,temp:0.728},{pulso:0.37,temp:0.729},{pulso:0.36,temp:0.728},{pulso:0.35,temp:0.728}],\n    [{pulso:0.29,temp:0.724},{pulso:0.31,temp:0.726},{pulso:0.33,temp:0.728},{pulso:0.34,temp:0.730}],\n    [{pulso:0.425,temp:0.736},{pulso:0.42,temp:0.735},{pulso:0.43,temp:0.736},{pulso:0.425,temp:0.736}]\n];\n\nif (!Array.isArray(results) || results.length === 0) {\n    node.warn(\"LSTM: sin datos de InfluxDB, usando fallback humano normal\");\n    msg.trainData = DEFAULT_TRAIN;\n    return msg;\n}\n\nconst pulseData = results.filter(r => r.sensor === 'pulso')\n    .sort((a,b) => new Date(a._time) - new Date(b._time));\nconst tempData = results.filter(r => r.sensor === 'temperatura')\n    .sort((a,b) => new Date(a._time) - new Date(b._time));\nconst minLen = Math.min(pulseData.length, tempData.length);\n\nif (minLen < WINDOW + 1) {\n    node.warn(\"LSTM: datos pareados insuficientes (\" + minLen + \"), usando fallback\");\n    msg.trainData = DEFAULT_TRAIN;\n    return msg;\n}\n\nconst paired = [];\nfor (let i = 0; i < minLen; i++) {\n    paired.push({\n        pulso: Number(pulseData[i]._value) / 200,\n        temp: Number(tempData[i]._value) / 50\n    });\n}\n\nconst sequences = [];\nfor (let i = 0; i <= paired.length - WINDOW; i++) {\n    sequences.push(paired.slice(i, i + WINDOW));\n}\n\nif (sequences.length < MIN_SEQUENCES) {\n    node.warn(\"LSTM: pocas secuencias (\" + sequences.length + \"), usando fallback\");\n    msg.trainData = DEFAULT_TRAIN;\n    return msg;\n}\n\nconst trimmed = sequences.length > MAX_SEQUENCES\n    ? sequences.slice(-MAX_SEQUENCES) : sequences;\nnode.warn(\"LSTM: entrenando con \" + trimmed.length + \" secuencias (pulso+temp) de InfluxDB\");\nmsg.trainData = trimmed;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 520,
+        "wires": [
+            [
+                "nn_lstm"
+            ]
+        ]
+    }
+]
