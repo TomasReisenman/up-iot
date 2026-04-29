@@ -14,14 +14,15 @@ void mostrarRelojSimulado();
 void mostrarFraseDelDia();
 void mostrarInfoSistema();
 void reconnect();
+int generarPulsoHumano();
 
 // Configuración del LCD: Dirección 0x27, 20 columnas y 4 filas
 LiquidCrystal_I2C lcd(0x27, 20, 4);
 
 // Valor del Pulso minimo. Lampara encendida
-int lv_valorPulso = 90;
+int lv_valorPulso = 60;
 int lv_PulsoMin = 45;
-int lv_PusoMax = 180;
+int lv_PulsoMax = 180;
 
 // Umbral de temperatura corporal elevada (fiebre)
 float lv_tempMax = 37.5;
@@ -47,7 +48,7 @@ DallasTemperature temperatureSensor(&oneWire);
 const char *ssid = "Wokwi-GUEST";
 const char *password = "";
 const char *mqtt_server = "broker.emqx.io";
-//const char *mqtt_server = "192.168.1.30";
+//const char *mqtt_server = "192.168.1.30"; //colocar la ip de la red local para el container de mosquitto 
 #define MQTT_BASE_TOPIC "biometrico"
 const char *pulse_topic = MQTT_BASE_TOPIC "/pulso";
 const char *temperature_topic = MQTT_BASE_TOPIC "/temperatura";
@@ -142,8 +143,8 @@ void loop()
   {
     ultimoEvento = ahora;
 
-    // 1. GENERAR VALOR ALEATORIO
-    int valorPulso = random(lv_PulsoMin, lv_PusoMax);
+    // 1. GENERAR VALOR SIMULADO CON PATRON HUMANO
+    int valorPulso = generarPulsoHumano();
 
     // 2. LEER SENSOR DE TEMPERATURA
     temperatureSensor.requestTemperatures();
@@ -289,4 +290,47 @@ void mostrarInfoSistema()
   lcd.print("WiFi: Buscando...");
   lcd.setCursor(0, 2);
   lcd.print("CPU Temp: 42 C");
+}
+
+// Simula pulso humano: deriva gradual + 3 tipos de arritmia
+// - Taquicardia (40%): sube a 115-175 bpm y sostiene varios ticks
+// - Bradicardia (30%): baja a 35-52 bpm y sostiene varios ticks
+// - Extrasistole/PVC (30%): caida breve de 1-2 ticks
+int generarPulsoHumano()
+{
+  static float pulso          = 72.0f;
+  static float vel            = 0.0f;
+  static int   ticksArritmia  = 0;
+  static float objetivoArr    = 72.0f;
+  static int   proximaArr     = 30;
+
+  if (ticksArritmia > 0) {
+    // Moverse rapidamente hacia el objetivo de la arritmia
+    vel = (objetivoArr - pulso) * 0.45f;
+    if (--ticksArritmia == 0)
+      proximaArr = random(20, 55);
+
+  } else {
+    // Ritmo normal: gravedad suave hacia basal (72 bpm) + ruido pequeño
+    float gravedad = (72.0f - pulso) * 0.04f;
+    float ruido    = (float)random(-30, 31) * 0.1f;  // ±3 bpm
+    vel = gravedad + ruido;
+
+    if (--proximaArr <= 0) {
+      int tipo = random(0, 10);
+      if (tipo < 4) {                               // Taquicardia
+        objetivoArr   = (float)random(115, 175);
+        ticksArritmia = random(4, 13);
+      } else if (tipo < 7) {                        // Bradicardia
+        objetivoArr   = (float)random(35, 52);
+        ticksArritmia = random(3, 8);
+      } else {                                      // Extrasistole / PVC
+        objetivoArr   = (float)random(15, 30);
+        ticksArritmia = 1;
+      }
+    }
+  }
+
+  pulso = constrain(pulso + vel, 15.0f, (float)lv_PulsoMax);
+  return (int)roundf(pulso);
 }
