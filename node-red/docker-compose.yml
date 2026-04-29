@@ -35,10 +35,12 @@ services:
     volumes:
       - node_red_data:/data
       - ./nodered/settings.js:/data/settings.js
-      - ./nodered/flows.json:/data/flows.json
-      - ./nodered/flows_cred.json:/data/flows_cred.json
+      - ./nodered:/config
+    env_file: .env
     environment:
       - NODE_OPTIONS=--dns-result-order=ipv4first
+      - INFLUXDB_URL=http://influxdb:8086
+      - FLOWS=/config/flows.json
     depends_on:
       - mqtt
       - influxdb

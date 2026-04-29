@@ -8,3 +8,13 @@ RUN npm install --unsafe-perm --no-update-notifier --no-fund \
 RUN npm install --unsafe-perm --no-update-notifier --no-fund --ignore-scripts \
     brain.js@2.0.0-beta.24 && \
     echo "module.exports = function() { return null; };" > node_modules/gl/index.js
+
+COPY --chown=node-red:node-red flows.json /data/flows.json
+COPY --chown=node-red:node-red flows_cred.json /data/flows_cred.json
+
+USER root
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+USER node-red
+
+ENTRYPOINT ["/entrypoint.sh"]
