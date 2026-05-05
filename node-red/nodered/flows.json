@@ -13,6 +13,14 @@
         "disabled": false
     },
     {
+        "id": "3a00bec5073f2b40",
+        "type": "tab",
+        "label": "Gemini",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "6bb90353dcc81fa1",
         "type": "ui_tab",
         "name": "Home",
@@ -260,6 +268,11 @@
         "rejectUnauthorized": true
     },
     {
+        "id": "cbc2f3e5947012ae",
+        "type": "gemini-api-key",
+        "name": "OK"
+    },
+    {
         "id": "n_inject_normal",
         "type": "inject",
         "z": "tab_biometrico",
@@ -455,7 +468,7 @@
         "topic": "biometrico/+",
         "qos": "2",
         "datatype": "auto",
-        "broker": "addfbf86eb0143df",
+        "broker": "mqtt_broker_local",
         "nl": false,
         "rap": false,
         "inputs": 0,
@@ -604,7 +617,8 @@
         "wires": [
             [
                 "fn_format_rundata",
-                "fn_buffer_lstm"
+                "fn_buffer_lstm",
+                "fn_prepare_gemini"
             ]
         ]
     },
@@ -777,8 +791,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 580,
-        "y": 400,
+        "x": 560,
+        "y": 420,
         "wires": [
             [
                 "influxdb_out"
@@ -797,10 +811,10 @@
         "database": "",
         "precisionV18FluxV20": "ms",
         "retentionPolicyV18Flux": "",
-        "org": "5e6e210343cf652f",
+        "org": "a106c59aed396348",
         "bucket": "up-iot",
-        "x": 780,
-        "y": 420,
+        "x": 860,
+        "y": 460,
         "wires": []
     },
     {
@@ -813,7 +827,7 @@
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
-        "org": "5e6e210343cf652f",
+        "org": "a106c59aed396348",
         "x": 400,
         "y": 740,
         "wires": [
@@ -864,7 +878,8 @@
             [
                 "c7f333a3df72780c"
             ]
-        ]
+        ],
+        "info": "Datos de entrenamiento"
     },
     {
         "id": "fn_format_rundata",
@@ -1083,7 +1098,7 @@
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
-        "org": "5e6e210343cf652f",
+        "org": "a106c59aed396348",
         "x": 690,
         "y": 520,
         "wires": [
@@ -1110,6 +1125,356 @@
             [
                 "nn_lstm"
             ]
+        ]
+    },
+    {
+        "id": "fn_prepare_gemini",
+        "type": "function",
+        "z": "flow1",
+        "name": "Prepare → Gemini",
+        "func": "const data = msg.payload;\nconst pulso = Number(data.pulso);\nconst temperatura = Number(data.temperatura);\nif (isNaN(pulso) || isNaN(temperatura)) return null;\nmsg.pulso = pulso;\nmsg.temperatura = temperatura;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 600,
+        "wires": [
+            [
+                "6772e6384334b5de"
+            ]
+        ]
+    },
+    {
+        "id": "ui_panel_gemini",
+        "type": "ui_template",
+        "z": "flow1",
+        "group": "group_ollama",
+        "name": "Panel Gemini",
+        "order": 3,
+        "width": "14",
+        "height": "5",
+        "format": "<div class=\"nn-panel\">\n  <div class=\"nn-title\">ANÁLISIS GEMINI IA</div>\n  <div class=\"nn-subtitle\">Evaluación médica en tiempo real</div>\n  <div class=\"ollama-response\" ng-bind-html=\"msg.payload\"></div>\n</div>\n<style>\n.nn-panel { padding: 8px; }\n.nn-title { font-size: 13px; font-weight: 600; letter-spacing: 2px; color: #555; text-transform: uppercase; }\n.nn-subtitle { font-size: 11px; color: #999; margin-bottom: 8px; }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1340,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bb66de6f54200670",
+        "type": "gemini-generate-content",
+        "z": "flow1",
+        "name": "Gemini",
+        "apiKey": "cbc2f3e5947012ae",
+        "modelSelection": "gemini-2.0-flash",
+        "customModel": "",
+        "customModelType": "str",
+        "mode": "single",
+        "prompt": "ROL: Eres un profesional de la salud (paramédico o médico clínico).  CONTEXTO:  La temperatura corporal normal está entre 36.0°C y 37.5°C. Se considera fiebre a partir de 38°C. El pulso normal en reposo está entre 60 y 100 latidos por minuto (lpm).  NOTA MÉDICA: \"Si la temperatura supera los 39°C o el pulso es mayor a 120 lpm o menor a 50 lpm, se considera una situación de riesgo que requiere atención inmediata.\"  DATOS ACTUALES:  Temperatura: {{temperatura}} °C Pulso: {{pulso}} lpm  TAREA:  Decide si el estado es \"PELIGRO\" o \"NORMAL\" basándote en la nota médica. Si es PELIGRO, redacta un reporte breve indicando posibles causas y recomendación urgente. Si es NORMAL, redacta un estado general breve indicando que los valores están dentro de rangos aceptables.  FORMATO DE SALIDA: Tu respuesta debe empezar SIEMPRE con: \"ESTADO: PELIGRO\" o \"ESTADO: NORMAL\" y luego el reporte en un párrafo nuevo.  RESTRICCIÓN IMPORTANTE: Tu respuesta completa no debe superar 5 líneas de texto.",
+        "promptType": "str",
+        "multimodalInputsData": "[]",
+        "grounding": false,
+        "temperature": "",
+        "temperatureType": "num",
+        "topP": "",
+        "topPType": "num",
+        "topK": "",
+        "topKType": "num",
+        "maxOutputTokens": "150",
+        "maxOutputTokensType": "num",
+        "safetyHarassment": "",
+        "safetyHateSpeech": "",
+        "safetySexuallyExplicit": "",
+        "safetyDangerousContent": "",
+        "thinkingBudget": "",
+        "thinkingBudgetType": "num",
+        "thinkingLevel": "",
+        "thinkingLevelType": "str",
+        "includeThoughts": false,
+        "systemInstruction": "",
+        "systemInstructionType": "str",
+        "outputProperty": "payload",
+        "passthroughProperties": false,
+        "responseFormat": "text",
+        "schemaPropertiesData": "[]",
+        "enumValues": "",
+        "x": 1160,
+        "y": 600,
+        "wires": [
+            [
+                "ui_panel_gemini"
+            ],
+            [
+                "dbd5a798609a2ef8"
+            ]
+        ]
+    },
+    {
+        "id": "6772e6384334b5de",
+        "type": "delay",
+        "z": "flow1",
+        "name": "Rate 1/2min",
+        "pauseType": "rate",
+        "timeout": "120",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "2",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1000,
+        "y": 600,
+        "wires": [
+            [
+                "bb66de6f54200670"
+            ]
+        ]
+    },
+    {
+        "id": "dbd5a798609a2ef8",
+        "type": "debug",
+        "z": "flow1",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1330,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "05ca4849c0b0b0e0",
+        "type": "inject",
+        "z": "3a00bec5073f2b40",
+        "name": "Lectura Crítica (95°C)",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "110",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 180,
+        "wires": [
+            [
+                "a9a55277ca745dd3"
+            ]
+        ]
+    },
+    {
+        "id": "19c750b21ca4754a",
+        "type": "inject",
+        "z": "3a00bec5073f2b40",
+        "name": "Lectura Normal (30°C)",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "30",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 240,
+        "wires": [
+            [
+                "a9a55277ca745dd3"
+            ]
+        ]
+    },
+    {
+        "id": "275e531ced0b5063",
+        "type": "switch",
+        "z": "3a00bec5073f2b40",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "^ESTADO: PELIGRO",
+                "vt": "str",
+                "case": false
+            },
+            {
+                "t": "regex",
+                "v": "^ESTADO: NORMAL",
+                "vt": "str",
+                "case": false
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 570,
+        "y": 200,
+        "wires": [
+            [
+                "d5cef376cbcf58e6"
+            ],
+            [
+                "9b9986f451094d17"
+            ]
+        ]
+    },
+    {
+        "id": "9b9986f451094d17",
+        "type": "debug",
+        "z": "3a00bec5073f2b40",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "d5cef376cbcf58e6",
+        "type": "change",
+        "z": "3a00bec5073f2b40",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "⚠ ALARMA ACTIVADA",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 140,
+        "wires": [
+            [
+                "619a4bc39fe71e6e"
+            ]
+        ]
+    },
+    {
+        "id": "619a4bc39fe71e6e",
+        "type": "template",
+        "z": "3a00bec5073f2b40",
+        "name": "",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "ASUNTO: Reporte Urgente de Incidencia - Reactor Principal\nCUERPO DEL MENSAJE:\nSe informa que el Agente IA ha detectado una anomalía.\nDetalle del Agente: {{msg.topic}}",
+        "output": "str",
+        "x": 960,
+        "y": 140,
+        "wires": [
+            [
+                "8bb319bee1d7e8df"
+            ]
+        ]
+    },
+    {
+        "id": "8bb319bee1d7e8df",
+        "type": "debug",
+        "z": "3a00bec5073f2b40",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1120,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "a9a55277ca745dd3",
+        "type": "gemini-generate-content",
+        "z": "3a00bec5073f2b40",
+        "name": "gemini",
+        "apiKey": "cbc2f3e5947012ae",
+        "modelSelection": "gemini-2.5-flash",
+        "customModel": "",
+        "customModelType": "str",
+        "mode": "single",
+        "prompt": "ROL: Eres un Ingeniero de Mantenimiento Senior. CONTEXTO: La temperatura estándar de seguridad es 80°C. Sin embargo, hay una NOTA DEL JEFE DE PLANTA: \"Hoy estamos realizando pruebas de estrés, se permite operar hasta los 100°C solo por hoy\". DATO ACTUAL: El sensor marca {{msg.topic}} °C. TAREA: 1. Decide si el estado es \"PELIGRO\" o \"NORMAL\" basándote en la nota del jefe. 2. Si es PELIGRO, redacta un reporte técnico breve para el equipo de reparaciones. 3. Si es NORMAL, redacta un log de estado breve. FORMATO DE SALIDA: Tu respuesta debe empezar SIEMPRE con la palabra \"ESTADO: PELIGRO\" o \"ESTADO: NORMAL\" y luego el reporte en un párrafo nuevo.",
+        "promptType": "str",
+        "multimodalInputsData": "[]",
+        "grounding": false,
+        "temperature": "",
+        "temperatureType": "num",
+        "topP": "",
+        "topPType": "num",
+        "topK": "",
+        "topKType": "num",
+        "maxOutputTokens": "",
+        "maxOutputTokensType": "num",
+        "safetyHarassment": "",
+        "safetyHateSpeech": "",
+        "safetySexuallyExplicit": "",
+        "safetyDangerousContent": "",
+        "thinkingBudget": "",
+        "thinkingBudgetType": "num",
+        "thinkingLevel": "",
+        "thinkingLevelType": "str",
+        "includeThoughts": false,
+        "systemInstruction": "",
+        "systemInstructionType": "str",
+        "outputProperty": "payload",
+        "passthroughProperties": false,
+        "responseFormat": "text",
+        "schemaPropertiesData": "[]",
+        "enumValues": "",
+        "x": 410,
+        "y": 200,
+        "wires": [
+            [
+                "275e531ced0b5063"
+            ],
+            []
         ]
     }
 ]
