@@ -461,22 +461,35 @@
         "wires": []
     },
     {
+        "id": "email_config",
+        "type": "e-mail",
+        "z": "tab_biometrico",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "tls": true,
+        "name": "Gmail SMTP",
+        "x": 0,
+        "y": 0,
+        "wires": []
+    },
+    {
         "id": "mqtt_in",
         "type": "mqtt in",
         "z": "flow1",
         "name": "Subscribe Sensors",
         "topic": "biometrico/+",
         "qos": "2",
-        "datatype": "auto",
+        "datatype": "auto-detect",
         "broker": "mqtt_broker_local",
         "nl": false,
         "rap": false,
         "inputs": 0,
         "x": 130,
-        "y": 340,
+        "y": 180,
         "wires": [
             [
-                "fn_extract"
+                "delay_rate_limit"
             ]
         ]
     },
@@ -485,15 +498,15 @@
         "type": "function",
         "z": "flow1",
         "name": "Extract Topic",
-        "func": "node.log(msg.topic);\nconst parts = msg.topic.split(\"/\");\nmsg.topic = parts[1];\nreturn msg;",
+        "func": "const secret = env.get('MQTT_SECRET_TOKEN');\nlet parsed;\nif (typeof msg.payload === 'object' && msg.payload !== null) {\n    parsed = msg.payload;\n} else {\n    try { parsed = JSON.parse(msg.payload); } catch(e) { return null; }\n}\nif (!parsed || parsed.t !== secret) return null;\n\nconst parts = msg.topic.split('/');\nmsg.topic = parts[1];\nmsg.payload = String(parsed.v);\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 350,
-        "y": 340,
+        "x": 500,
+        "y": 300,
         "wires": [
             [
                 "join",
@@ -524,8 +537,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 540,
-        "y": 240,
+        "x": 700,
+        "y": 160,
         "wires": [
             [
                 "gauge_pulso"
@@ -559,8 +572,8 @@
         "seg2": "100",
         "diff": false,
         "className": "gauge-pulso",
-        "x": 750,
-        "y": 180,
+        "x": 910,
+        "y": 100,
         "wires": []
     },
     {
@@ -587,8 +600,8 @@
         "seg2": "38",
         "diff": false,
         "className": "gauge-temp",
-        "x": 790,
-        "y": 240,
+        "x": 950,
+        "y": 160,
         "wires": []
     },
     {
@@ -612,13 +625,14 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 550,
-        "y": 340,
+        "x": 700,
+        "y": 300,
         "wires": [
             [
                 "fn_format_rundata",
                 "fn_buffer_lstm",
-                "fn_prepare_gemini"
+                "fn_prepare_gemini",
+                "ollama_fn_prepare"
             ]
         ]
     },
@@ -637,8 +651,8 @@
         "resendOnRefresh": false,
         "templateScope": "global",
         "className": "",
-        "x": 150,
-        "y": 680,
+        "x": 110,
+        "y": 520,
         "wires": [
             []
         ]
@@ -660,8 +674,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 180,
-        "y": 740,
+        "x": 140,
+        "y": 580,
         "wires": [
             [
                 "influx_query"
@@ -680,8 +694,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 620,
-        "y": 740,
+        "x": 580,
+        "y": 580,
         "wires": [
             [
                 "chart_pulso"
@@ -729,8 +743,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 850,
-        "y": 720,
+        "x": 810,
+        "y": 560,
         "wires": [
             []
         ]
@@ -773,8 +787,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 870,
-        "y": 780,
+        "x": 830,
+        "y": 620,
         "wires": [
             []
         ]
@@ -791,8 +805,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 560,
-        "y": 420,
+        "x": 710,
+        "y": 380,
         "wires": [
             [
                 "influxdb_out"
@@ -811,10 +825,10 @@
         "database": "",
         "precisionV18FluxV20": "ms",
         "retentionPolicyV18Flux": "",
-        "org": "a106c59aed396348",
+        "org": "ebcd841221694f0a",
         "bucket": "up-iot",
-        "x": 860,
-        "y": 460,
+        "x": 960,
+        "y": 360,
         "wires": []
     },
     {
@@ -827,9 +841,9 @@
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
-        "org": "a106c59aed396348",
-        "x": 400,
-        "y": 740,
+        "org": "ebcd841221694f0a",
+        "x": 360,
+        "y": 580,
         "wires": [
             [
                 "fn_chart_format"
@@ -847,8 +861,8 @@
         "log": false,
         "logPeriod": 10,
         "nntype": 0,
-        "x": 1040,
-        "y": 220,
+        "x": 1310,
+        "y": 120,
         "wires": [
             [
                 "fn_ff_router"
@@ -872,8 +886,8 @@
         "once": true,
         "onceDelay": "1",
         "topic": "",
-        "x": 830,
-        "y": 120,
+        "x": 1130,
+        "y": 40,
         "wires": [
             [
                 "c7f333a3df72780c"
@@ -893,8 +907,8 @@
         "initialize": "flow.set('ff_trained', false);",
         "finalize": "",
         "libs": [],
-        "x": 810,
-        "y": 300,
+        "x": 910,
+        "y": 200,
         "wires": [
             [
                 "c7f333a3df72780c"
@@ -906,15 +920,15 @@
         "type": "function",
         "z": "flow1",
         "name": "LSTM TimeStep",
-        "func": "const brainjs = global.get('brainjs');\n\nif (msg.trainData) {\n    const net = new brainjs.recurrent.LSTMTimeStep({\n        inputSize: 2,\n        hiddenLayers: [10],\n        outputSize: 2\n    });\n    node.status({fill:'yellow',shape:'dot',text:'Entrenando...'});\n\n    try {\n        const res = net.train(msg.trainData, {\n            iterations: 500,\n            errorThresh: 0.01,\n            learningRate: 0.005,\n            log: false\n        });\n        flow.set('lstm_net_json', net.toJSON());\n        node.status({fill:'green',shape:'dot',text:'Entrenada (err=' + res.error.toFixed(4) + ')'});\n        msg.net = true;\n        msg.result = res;\n        return msg;\n    } catch(e) {\n        node.error('LSTM train: ' + e.message);\n        node.status({fill:'red',shape:'dot',text:'Error'});\n        return null;\n    }\n}\n\nif (msg.runData) {\n    const netJSON = flow.get('lstm_net_json');\n    if (!netJSON) return null;\n\n    try {\n        const net = new brainjs.recurrent.LSTMTimeStep();\n        net.fromJSON(netJSON);\n        msg.decision = net.run(msg.runData);\n        return msg;\n    } catch(e) {\n        node.error('LSTM run: ' + e.message);\n        return null;\n    }\n}\n\nreturn null;",
+        "func": "const brainjs = global.get('brainjs');\nif (!brainjs || !brainjs.recurrent) {\n    node.error('brain.js no cargado en contexto global');\n    node.status({fill:'red',shape:'dot',text:'brain.js no disponible'});\n    return null;\n}\n\nif (msg.trainData) {\n    const net = new brainjs.recurrent.LSTMTimeStep({\n        inputSize: 2,\n        hiddenLayers: [10],\n        outputSize: 2\n    });\n    node.status({fill:'yellow',shape:'dot',text:'Entrenando...'});\n\n    try {\n        const res = net.train(msg.trainData, {\n            iterations: 500,\n            errorThresh: 0.01,\n            learningRate: 0.005,\n            log: false\n        });\n        flow.set('lstm_net_json', net.toJSON());\n        node.status({fill:'green',shape:'dot',text:'Entrenada (err=' + res.error.toFixed(4) + ')'});\n        msg.net = true;\n        msg.result = res;\n        return msg;\n    } catch(e) {\n        node.error('LSTM train: ' + e.message);\n        node.status({fill:'red',shape:'dot',text:'Error'});\n        return null;\n    }\n}\n\nif (msg.runData) {\n    const netJSON = flow.get('lstm_net_json');\n    if (!netJSON) return null;\n\n    try {\n        const net = new brainjs.recurrent.LSTMTimeStep();\n        net.fromJSON(netJSON);\n        msg.decision = net.run(msg.runData);\n        return msg;\n    } catch(e) {\n        node.error('LSTM run: ' + e.message);\n        return null;\n    }\n}\n\nreturn null;",
         "outputs": 1,
         "timeout": "120",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1030,
-        "y": 380,
+        "x": 1720,
+        "y": 240,
         "wires": [
             [
                 "fn_lstm_router"
@@ -933,8 +947,8 @@
         "initialize": "flow.set('lstm_buffer', []);\nflow.set('lstm_trained', false);",
         "finalize": "",
         "libs": [],
-        "x": 800,
-        "y": 360,
+        "x": 1380,
+        "y": 240,
         "wires": [
             [
                 "nn_lstm"
@@ -953,8 +967,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1400,
-        "y": 220,
+        "x": 1670,
+        "y": 120,
         "wires": [
             [
                 "ui_panel_ff"
@@ -973,8 +987,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1410,
-        "y": 380,
+        "x": 2100,
+        "y": 240,
         "wires": [
             [
                 "ui_panel_lstm"
@@ -996,8 +1010,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1590,
-        "y": 220,
+        "x": 1860,
+        "y": 120,
         "wires": [
             []
         ]
@@ -1017,8 +1031,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1590,
-        "y": 380,
+        "x": 2280,
+        "y": 240,
         "wires": [
             []
         ]
@@ -1035,11 +1049,12 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1220,
-        "y": 220,
+        "x": 1490,
+        "y": 120,
         "wires": [
             [
-                "fn_ff_result"
+                "fn_ff_result",
+                "fn_email_alert"
             ]
         ]
     },
@@ -1055,8 +1070,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1230,
-        "y": 380,
+        "x": 1920,
+        "y": 240,
         "wires": [
             [
                 "fn_lstm_result"
@@ -1080,8 +1095,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 430,
-        "y": 520,
+        "x": 1240,
+        "y": 440,
         "wires": [
             [
                 "influx_query_lstm_train"
@@ -1098,9 +1113,9 @@
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
-        "org": "a106c59aed396348",
-        "x": 690,
-        "y": 520,
+        "org": "ebcd841221694f0a",
+        "x": 1470,
+        "y": 360,
         "wires": [
             [
                 "fn_build_lstm_train"
@@ -1119,8 +1134,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 930,
-        "y": 520,
+        "x": 1720,
+        "y": 360,
         "wires": [
             [
                 "nn_lstm"
@@ -1139,7 +1154,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 790,
+        "x": 1130,
         "y": 600,
         "wires": [
             [
@@ -1162,8 +1177,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1340,
-        "y": 540,
+        "x": 1740,
+        "y": 560,
         "wires": [
             []
         ]
@@ -1174,11 +1189,11 @@
         "z": "flow1",
         "name": "Gemini",
         "apiKey": "cbc2f3e5947012ae",
-        "modelSelection": "gemini-2.0-flash",
+        "modelSelection": "gemini-3-flash-preview",
         "customModel": "",
         "customModelType": "str",
         "mode": "single",
-        "prompt": "ROL: Eres un profesional de la salud (paramédico o médico clínico).  CONTEXTO:  La temperatura corporal normal está entre 36.0°C y 37.5°C. Se considera fiebre a partir de 38°C. El pulso normal en reposo está entre 60 y 100 latidos por minuto (lpm).  NOTA MÉDICA: \"Si la temperatura supera los 39°C o el pulso es mayor a 120 lpm o menor a 50 lpm, se considera una situación de riesgo que requiere atención inmediata.\"  DATOS ACTUALES:  Temperatura: {{temperatura}} °C Pulso: {{pulso}} lpm  TAREA:  Decide si el estado es \"PELIGRO\" o \"NORMAL\" basándote en la nota médica. Si es PELIGRO, redacta un reporte breve indicando posibles causas y recomendación urgente. Si es NORMAL, redacta un estado general breve indicando que los valores están dentro de rangos aceptables.  FORMATO DE SALIDA: Tu respuesta debe empezar SIEMPRE con: \"ESTADO: PELIGRO\" o \"ESTADO: NORMAL\" y luego el reporte en un párrafo nuevo.  RESTRICCIÓN IMPORTANTE: Tu respuesta completa no debe superar 5 líneas de texto.",
+        "prompt": "ROL: Eres un profesional de la salud (paramédico o médico clínico).  CONTEXTO:  La temperatura corporal normal está entre 36.0°C y 37.5°C. Se considera fiebre a partir de 38°C. El pulso normal en reposo está entre 60 y 100 latidos por minuto (lpm).  NOTA MÉDICA: \"Si la temperatura supera los 39°C o el pulso es mayor a 120 lpm o menor a 50 lpm, se considera una situación de riesgo que requiere atención inmediata.\"  DATOS ACTUALES:  Temperatura: {{temperatura}} °C Pulso: {{pulso}} lpm  TAREA:  Decide si el estado es \"PELIGRO\" o \"NORMAL\" basándote en la nota médica. Si es PELIGRO, redacta un reporte breve indicando posibles causas y recomendación urgente. Si es NORMAL, redacta un estado general breve indicando que los valores están dentro de rangos aceptables.  FORMATO DE SALIDA: Tu respuesta debe empezar SIEMPRE con: \"ESTADO: PELIGRO\" o \"ESTADO: NORMAL\" y luego el reporte en un párrafo nuevo. ",
         "promptType": "str",
         "multimodalInputsData": "[]",
         "grounding": false,
@@ -1206,15 +1221,14 @@
         "responseFormat": "text",
         "schemaPropertiesData": "[]",
         "enumValues": "",
-        "x": 1160,
-        "y": 600,
+        "x": 1540,
+        "y": 540,
         "wires": [
             [
-                "ui_panel_gemini"
+                "ui_panel_gemini",
+                "b56b99adaa21cfa0"
             ],
-            [
-                "dbd5a798609a2ef8"
-            ]
+            []
         ]
     },
     {
@@ -1234,7 +1248,7 @@
         "drop": true,
         "allowrate": false,
         "outputs": 1,
-        "x": 1000,
+        "x": 1340,
         "y": 600,
         "wires": [
             [
@@ -1243,20 +1257,229 @@
         ]
     },
     {
-        "id": "dbd5a798609a2ef8",
+        "id": "ollama_fn_prepare",
+        "type": "function",
+        "z": "flow1",
+        "name": "Prepare → Ollama",
+        "func": "const data = msg.payload;\nconst pulso = Number(data.pulso);\nconst temperatura = Number(data.temperatura);\nif (isNaN(pulso) || isNaN(temperatura)) return null;\nmsg.payload = {\n    model: \"llama3.2:1b\",\n    prompt: `ROL: Eres un profesional de la salud. DATOS ACTUALES: Temperatura: ${temperatura}°C, Pulso: ${pulso} lpm. Temperatura normal 36-37.5°C, pulso normal 60-100 lpm. PELIGRO si temp>39°C, pulso>120 o <50 lpm. Tu respuesta debe empezar SIEMPRE con 'ESTADO: PELIGRO' o 'ESTADO: NORMAL' seguido de un párrafo breve. Máximo 5 líneas.`,\n    stream: false\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1130,
+        "y": 660,
+        "wires": [
+            [
+                "ollama_delay"
+            ]
+        ]
+    },
+    {
+        "id": "ollama_delay",
+        "type": "delay",
+        "z": "flow1",
+        "name": "Rate 1/30 - seg",
+        "pauseType": "rate",
+        "timeout": "120",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "30",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1360,
+        "y": 660,
+        "wires": [
+            [
+                "ollama_http"
+            ]
+        ]
+    },
+    {
+        "id": "ollama_http",
+        "type": "http request",
+        "z": "flow1",
+        "name": "Ollama",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://192.168.1.9:11434/api/generate",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1540,
+        "y": 640,
+        "wires": [
+            [
+                "ollama_fn_result"
+            ]
+        ]
+    },
+    {
+        "id": "ollama_fn_result",
+        "type": "function",
+        "z": "flow1",
+        "name": "Ollama → Panel",
+        "func": "if (!msg.payload || !msg.payload.response) return null;\nmsg.payload = msg.payload.response;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1720,
+        "y": 680,
+        "wires": [
+            [
+                "ollama_ui_panel",
+                "70bb55cbe74a5359"
+            ]
+        ]
+    },
+    {
+        "id": "ollama_ui_panel",
+        "type": "ui_template",
+        "z": "flow1",
+        "group": "group_ollama",
+        "name": "Panel Ollama",
+        "order": 4,
+        "width": "14",
+        "height": "5",
+        "format": "<div class=\"nn-panel\">\n  <div class=\"nn-title\">ANÁLISIS OLLAMA IA (LOCAL)</div>\n  <div class=\"nn-subtitle\">Evaluación médica local - llama3.2:1b</div>\n  <div class=\"ollama-response\" ng-bind-html=\"msg.payload\"></div>\n</div>\n<style>\n.nn-panel { padding: 8px; }\n.nn-title { font-size: 13px; font-weight: 600; letter-spacing: 2px; color: #555; text-transform: uppercase; }\n.nn-subtitle { font-size: 11px; color: #999; margin-bottom: 8px; }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1940,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "70bb55cbe74a5359",
+        "type": "debug",
+        "z": "flow1",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1900,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "b56b99adaa21cfa0",
         "type": "debug",
         "z": "flow1",
         "name": "debug 3",
         "active": true,
         "tosidebar": true,
-        "console": true,
+        "console": false,
         "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
+        "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1330,
-        "y": 620,
+        "x": 1700,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "delay_rate_limit",
+        "type": "delay",
+        "z": "flow1",
+        "name": "Rate 1/seg",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 370,
+        "y": 180,
+        "wires": [
+            [
+                "fn_extract"
+            ]
+        ]
+    },
+    {
+        "id": "fn_email_alert",
+        "type": "function",
+        "z": "flow1",
+        "name": "Preparar Alerta Email",
+        "func": "const decision = msg.decision;\nif (!decision || decision.peligro === undefined) return null;\nif (decision.peligro <= 0.7) return null;\n\nconst orig = msg.originalData || {};\nconst pct = (decision.peligro * 100).toFixed(1);\nconst to = env.get('ALERT_EMAIL_TO');\nif (!to) return null;\n\nmsg.to = to;\nmsg.topic = 'ALERTA BIOMETRICA: Paciente en riesgo (' + pct + '%)';\nmsg.payload = 'Se detecto una situacion de riesgo biologico.\\n\\n'\n  + 'Probabilidad de peligro: ' + pct + '%\\n'\n  + 'Pulso actual: ' + (orig.pulso || '?') + ' bpm\\n'\n  + 'Temperatura actual: ' + (orig.temperatura || '?') + ' C\\n\\n'\n  + 'Revisar el dashboard de monitoreo biometrico.';\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1710,
+        "y": 40,
+        "wires": [
+            [
+                "delay_email_rate"
+            ]
+        ]
+    },
+    {
+        "id": "delay_email_rate",
+        "type": "delay",
+        "z": "flow1",
+        "name": "Max 1 email / 5min",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1910,
+        "y": 40,
+        "wires": [
+            [
+                "email_send"
+            ]
+        ]
+    },
+    {
+        "id": "email_send",
+        "type": "e-mail",
+        "z": "flow1",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "tls": true,
+        "name": "${ALERT_EMAIL_TO}",
+        "x": 2110,
+        "y": 40,
         "wires": []
     },
     {
@@ -1436,7 +1659,7 @@
         "z": "3a00bec5073f2b40",
         "name": "gemini",
         "apiKey": "cbc2f3e5947012ae",
-        "modelSelection": "gemini-2.5-flash",
+        "modelSelection": "gemini-2.0-flash-lite",
         "customModel": "",
         "customModelType": "str",
         "mode": "single",

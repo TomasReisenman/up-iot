@@ -47,9 +47,10 @@ DallasTemperature temperatureSensor(&oneWire);
 // --- Configuración MQTT ---
 const char *ssid = "Wokwi-GUEST";
 const char *password = "";
-const char *mqtt_server = "broker.emqx.io";
-//const char *mqtt_server = "192.168.1.30"; //colocar la ip de la red local para el container de mosquitto 
+//const char *mqtt_server = "broker.emqx.io";
+const char *mqtt_server = "192.168.1.9"; //colocar la ip de la red local para el container de mosquitto
 #define MQTT_BASE_TOPIC "biometrico"
+#define MQTT_SECRET_TOKEN "06e68bebe774b5b382ae5522de1ee267"
 const char *pulse_topic = MQTT_BASE_TOPIC "/pulso";
 const char *temperature_topic = MQTT_BASE_TOPIC "/temperatura";
 
@@ -174,16 +175,16 @@ void loop()
     display.display(); // ¡Obligatorio para que se vea!
 
     // 4. ENVIAR PULSO A MQTT
-    char msg[10];
-    snprintf(msg, 10, "%d", valorPulso);
+    char msg[80];
+    snprintf(msg, sizeof(msg), "{\"t\":\"" MQTT_SECRET_TOKEN "\",\"v\":%d}", valorPulso);
     client.publish(pulse_topic, msg);
-    Serial.printf("Enviado: %s bpm\n", msg);
+    Serial.printf("Enviado pulso: %d bpm\n", valorPulso);
 
     // 5. ENVIAR TEMPERATURA A MQTT
-    char tempMsg[10];
-    snprintf(tempMsg, sizeof(tempMsg), "%.2f", tempC);
+    char tempMsg[80];
+    snprintf(tempMsg, sizeof(tempMsg), "{\"t\":\"" MQTT_SECRET_TOKEN "\",\"v\":%.2f}", tempC);
     client.publish(temperature_topic, tempMsg);
-    Serial.printf("Enviado: %s C\n", tempMsg);
+    Serial.printf("Enviado temp: %.2f C\n", tempC);
 
     // 6. CONTROL DE LÁMPARA (pulso elevado o fiebre)
     bool pulsoAlto = valorPulso > lv_valorPulso;

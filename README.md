@@ -153,8 +153,19 @@ El servicio `influxdb` del `docker-compose.yml` queda disponible como alternativ
 
 El stack es una demo: las credenciales viven en plaintext dentro del repo.
 
-- `node-red/.env.example` → variables que consume `docker-compose.yml` (usuario/password de InfluxDB y token).
-- `node-red/nodered/flows_cred.json` → plaintext, contiene el token que el nodo `influxdb out` usa para escribir.
+- `node-red/.env.example` → variables que consume `docker-compose.yml`. Copiar a `.env` y completar:
+
+| Variable | Descripción |
+|---|---|
+| `INFLUXDB_USERNAME` | Usuario admin de InfluxDB local |
+| `INFLUXDB_PASSWORD` | Password de InfluxDB local |
+| `INFLUXDB_ORG` | Nombre de la organización de InfluxDB |
+| `INFLUXDB_BUCKET` | Bucket de InfluxDB |
+| `INFLUXDB_TOKEN` | Token de autenticación de InfluxDB |
+| `MQTT_SECRET_TOKEN` | Token de seguridad MQTT. El firmware lo incluye en cada mensaje (`{"t":"<token>","v":<valor>}`); Node-RED descarta mensajes con token inválido o ausente. Generá uno con `python3 -c "import secrets; print(secrets.token_hex(16))"`. |
+| `GOOGLE_API_KEY` | API key de Google AI Studio para el nodo Gemini. El entrypoint la inyecta automáticamente en `flows_cred.json` al iniciar el contenedor. Obtenela en [aistudio.google.com](https://aistudio.google.com). |
+
+- `node-red/nodered/flows_cred.json` → plaintext, contiene el token que el nodo `influxdb out` usa para escribir. La Google API key se inyecta aquí automáticamente desde `GOOGLE_API_KEY` al arrancar.
 - `node-red/nodered/settings.js` → `credentialSecret: false` para que Node-RED lea credentials sin encriptar.
 
 Si en algún momento querés tokens reales, agregá `nodered/flows_cred.json` al `.gitignore`, habilitá `credentialSecret` y configurá las credenciales desde la UI.

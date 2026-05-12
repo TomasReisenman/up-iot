@@ -30,5 +30,23 @@ else
   echo "[entrypoint] Could not fetch org ID, starting with existing flows.json"
 fi
 
+# Inject credentials into flows_cred.json
+CREDS_FILE="/data/flows_cred.json"
+node -e "
+  const fs = require('fs');
+  let creds = {};
+  try { creds = JSON.parse(fs.readFileSync('${CREDS_FILE}', 'utf8')); } catch(e) {}
+  if ('${GOOGLE_API_KEY}') {
+    creds['cbc2f3e5947012ae'] = { apikey: '${GOOGLE_API_KEY}' };
+    console.log('[entrypoint] Google API key injected');
+  }
+  if ('${GMAIL_USER}' && '${GMAIL_APP_PASSWORD}') {
+    creds['email_config'] = { userid: '${GMAIL_USER}', password: '${GMAIL_APP_PASSWORD}' };
+    creds['email_send'] = { userid: '${GMAIL_USER}', password: '${GMAIL_APP_PASSWORD}' };
+    console.log('[entrypoint] Gmail credentials injected');
+  }
+  fs.writeFileSync('${CREDS_FILE}', JSON.stringify(creds));
+"
+
 cd /usr/src/node-red
 exec /usr/src/node-red/entrypoint.sh "$@"
