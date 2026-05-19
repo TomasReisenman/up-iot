@@ -485,8 +485,8 @@
         "nl": false,
         "rap": false,
         "inputs": 0,
-        "x": 130,
-        "y": 180,
+        "x": 350,
+        "y": 780,
         "wires": [
             [
                 "delay_rate_limit"
@@ -505,8 +505,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 500,
-        "y": 300,
+        "x": 720,
+        "y": 900,
         "wires": [
             [
                 "join",
@@ -537,8 +537,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 700,
-        "y": 160,
+        "x": 920,
+        "y": 760,
         "wires": [
             [
                 "gauge_pulso"
@@ -572,8 +572,8 @@
         "seg2": "100",
         "diff": false,
         "className": "gauge-pulso",
-        "x": 910,
-        "y": 100,
+        "x": 1130,
+        "y": 700,
         "wires": []
     },
     {
@@ -600,8 +600,8 @@
         "seg2": "38",
         "diff": false,
         "className": "gauge-temp",
-        "x": 950,
-        "y": 160,
+        "x": 1170,
+        "y": 760,
         "wires": []
     },
     {
@@ -625,8 +625,8 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 700,
-        "y": 300,
+        "x": 920,
+        "y": 900,
         "wires": [
             [
                 "fn_format_rundata",
@@ -645,14 +645,14 @@
         "order": 0,
         "width": "14",
         "height": "1",
-        "format": "<style>\n    /* Variables de colores - Escala de grises */\n    :root {\n        --primary-color: #1a1a1a;\n        --secondary-color: #2d2d2d;\n        --accent-color: #404040;\n        --bg-gradient-start: #0a0a0a;\n        --bg-gradient-mid: #1a1a1a;\n        --bg-gradient-end: #121212;\n        --card-bg: rgba(255, 255, 255, 0.05);\n        --card-border: rgba(255, 255, 255, 0.08);\n        --text-primary: #ffffff;\n        --text-secondary: rgba(255, 255, 255, 0.6);\n    }\n\n    /* Fondo principal del dashboard */\n    #nr-dashboard-sidebar,\n    .md-sidenav-left {\n        background: linear-gradient(180deg, var(--bg-gradient-start), var(--bg-gradient-mid), var(--bg-gradient-end)) !important;\n    }\n\n    .nr-dashboard-theme {\n        background: linear-gradient(180deg, var(--bg-gradient-start), var(--bg-gradient-mid), var(--bg-gradient-end)) !important;\n    }\n\n    /* Cards de grupos */\n    .nr-dashboard-cardpanel {\n        background: var(--card-bg) !important;\n        backdrop-filter: blur(10px) !important;\n        border-radius: 12px !important;\n        border: 1px solid var(--card-border) !important;\n        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;\n        margin: 12px !important;\n        transition: transform 0.3s ease, box-shadow 0.3s ease !important;\n    }\n\n    .nr-dashboard-cardpanel:hover {\n        transform: translateY(-2px) !important;\n        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5) !important;\n        border-color: rgba(255, 255, 255, 0.12) !important;\n    }\n\n    /* Titulos de grupos */\n    .nr-dashboard-cardtitle {\n        color: #1a1a1a !important;\n        font-weight: 600 !important;\n        font-size: 1.1em !important;\n        text-transform: uppercase !important;\n        letter-spacing: 3px !important;\n        padding: 16px 20px !important;\n        border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;\n        background: linear-gradient(90deg, rgba(0, 0, 0, 0.03), transparent) !important;\n    }\n\n    /* Gauges */\n    .nr-dashboard-gauge {\n        padding: 10px 10px 0 10px !important;\n        overflow: visible !important;\n    }\n\n    .nr-dashboard-gauge svg {\n        overflow: visible !important;\n    }\n\n    .nr-dashboard-widget {\n        overflow: visible !important;\n    }\n\n    .nr-dashboard-widget-contents {\n        overflow: visible !important;\n    }\n\n    md-card {\n        overflow: visible !important;\n    }\n\n    .nr-dashboard-cardpanel layout-row {\n        overflow: visible !important;\n    }\n\n    .nr-dashboard-gauge text {\n        fill: #333333 !important;\n        font-family: 'Roboto', 'Segoe UI', sans-serif !important;\n    }\n\n    .nr-dashboard-gauge .gauge-title {\n        font-size: 13px !important;\n        font-weight: 500 !important;\n        text-transform: uppercase !important;\n        letter-spacing: 2px !important;\n        fill: #555555 !important;\n    }\n\n    .nr-dashboard-gauge .gauge-value {\n        font-size: 26px !important;\n        font-weight: 400 !important;\n        fill: #1a1a1a !important;\n    }\n\n    /* Texto UI */\n    .nr-dashboard-text {\n        color: #333333 !important;\n    }\n\n    .nr-dashboard-textvalue {\n        color: #333333 !important;\n    }\n\n    /* Respuesta de Ollama */\n    .ollama-response {\n        background: #e8e8e8 !important;\n        padding: 24px 30px !important;\n        border-radius: 10px !important;\n        font-size: 22px !important;\n        font-weight: 500 !important;\n        color: #1a1a1a !important;\n        text-align: center !important;\n        border-left: 4px solid #888888 !important;\n        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;\n        animation: fadeIn 0.5s ease !important;\n        letter-spacing: 0.3px !important;\n        margin: 10px !important;\n        line-height: 1.4 !important;\n    }\n\n    @keyframes fadeIn {\n        from { opacity: 0; transform: translateY(10px); }\n        to { opacity: 1; transform: translateY(0); }\n    }\n\n    /* Toolbar */\n    .nr-dashboard-toolbar {\n        background: linear-gradient(90deg, #1a1a1a, #252525) !important;\n        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4) !important;\n    }\n\n    /* Iconos y navegacion */\n    .md-button.md-icon-button md-icon {\n        color: var(--text-primary) !important;\n    }\n\n    /* Scrollbar personalizado */\n    ::-webkit-scrollbar {\n        width: 6px;\n        height: 6px;\n    }\n\n    ::-webkit-scrollbar-track {\n        background: rgba(255, 255, 255, 0.02);\n    }\n\n    ::-webkit-scrollbar-thumb {\n        background: rgba(255, 255, 255, 0.15);\n        border-radius: 3px;\n    }\n\n    ::-webkit-scrollbar-thumb:hover {\n        background: rgba(255, 255, 255, 0.25);\n    }\n\n    /* Labels de grupos */\n    .nr-dashboard-groupname {\n        color: #555555 !important;\n    }\n\n    /* Widget containers */\n    .nr-dashboard-widget {\n        transition: all 0.3s ease !important;\n    }\n\n    /* Mejoras para mobile */\n    @media (max-width: 600px) {\n        .nr-dashboard-cardpanel {\n            margin: 8px !important;\n            border-radius: 10px !important;\n        }\n        \n        .ollama-response {\n            font-size: 15px !important;\n            padding: 16px !important;\n        }\n    }\n</style>\n<div class=\"dashboard-header\">\n    Monitor Biométrico IoT\n</div>\n<style>\n    .dashboard-header {\n        text-align: center;\n        font-size: 12px;\n        color: #666666;\n        padding: 10px;\n        letter-spacing: 3px;\n        text-transform: uppercase;\n        font-weight: 400;\n    }\n</style>",
+        "format": "<style>\n    /* Cards */\n    .nr-dashboard-cardpanel {\n        border-radius: 10px !important;\n        border: 1px solid #e8e8e8 !important;\n        box-shadow: 0 1px 6px rgba(0,0,0,0.07) !important;\n        margin: 10px !important;\n        background: #ffffff !important;\n    }\n\n    /* Títulos de grupos */\n    .nr-dashboard-cardtitle {\n        font-weight: 600 !important;\n        font-size: 0.72em !important;\n        text-transform: uppercase !important;\n        letter-spacing: 3px !important;\n        padding: 14px 18px !important;\n        border-bottom: 1px solid #f0f0f0 !important;\n        color: #1a1a1a !important;\n        background: transparent !important;\n    }\n\n    /* Gauges */\n    .nr-dashboard-gauge { padding: 10px 10px 0 10px !important; overflow: visible !important; }\n    .nr-dashboard-gauge svg { overflow: visible !important; }\n    .nr-dashboard-widget { overflow: visible !important; }\n    .nr-dashboard-widget-contents { overflow: visible !important; }\n    md-card { overflow: visible !important; }\n    .nr-dashboard-cardpanel layout-row { overflow: visible !important; }\n\n    .nr-dashboard-gauge text {\n        fill: #333333 !important;\n        font-family: 'Roboto', 'Segoe UI', sans-serif !important;\n    }\n    .nr-dashboard-gauge .gauge-title {\n        font-size: 12px !important;\n        font-weight: 500 !important;\n        text-transform: uppercase !important;\n        letter-spacing: 2px !important;\n        fill: #888888 !important;\n    }\n    .nr-dashboard-gauge .gauge-value {\n        font-size: 26px !important;\n        font-weight: 400 !important;\n        fill: #1a1a1a !important;\n    }\n\n    .nr-dashboard-text,\n    .nr-dashboard-textvalue { color: #333333 !important; }\n\n    ::-webkit-scrollbar { width: 4px; height: 4px; }\n    ::-webkit-scrollbar-track { background: transparent; }\n    ::-webkit-scrollbar-thumb { background: #d0d0d0; border-radius: 2px; }\n</style>",
         "storeOutMessages": false,
         "fwdInMessages": false,
         "resendOnRefresh": false,
         "templateScope": "global",
         "className": "",
-        "x": 110,
-        "y": 520,
+        "x": 330,
+        "y": 1120,
         "wires": [
             []
         ]
@@ -674,8 +674,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 140,
-        "y": 580,
+        "x": 360,
+        "y": 1180,
         "wires": [
             [
                 "influx_query"
@@ -694,8 +694,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 580,
-        "y": 580,
+        "x": 800,
+        "y": 1180,
         "wires": [
             [
                 "chart_pulso"
@@ -743,8 +743,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 810,
-        "y": 560,
+        "x": 1030,
+        "y": 1160,
         "wires": [
             []
         ]
@@ -787,8 +787,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 830,
-        "y": 620,
+        "x": 1050,
+        "y": 1220,
         "wires": [
             []
         ]
@@ -805,8 +805,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 710,
-        "y": 380,
+        "x": 930,
+        "y": 980,
         "wires": [
             [
                 "influxdb_out"
@@ -827,8 +827,8 @@
         "retentionPolicyV18Flux": "",
         "org": "ebcd841221694f0a",
         "bucket": "up-iot",
-        "x": 960,
-        "y": 360,
+        "x": 1180,
+        "y": 960,
         "wires": []
     },
     {
@@ -842,8 +842,8 @@
         "precision": "",
         "retentionPolicy": "",
         "org": "ebcd841221694f0a",
-        "x": 360,
-        "y": 580,
+        "x": 580,
+        "y": 1180,
         "wires": [
             [
                 "fn_chart_format"
@@ -861,8 +861,8 @@
         "log": false,
         "logPeriod": 10,
         "nntype": 0,
-        "x": 1310,
-        "y": 120,
+        "x": 1530,
+        "y": 720,
         "wires": [
             [
                 "fn_ff_router"
@@ -886,8 +886,8 @@
         "once": true,
         "onceDelay": "1",
         "topic": "",
-        "x": 1130,
-        "y": 40,
+        "x": 1350,
+        "y": 640,
         "wires": [
             [
                 "c7f333a3df72780c"
@@ -907,8 +907,8 @@
         "initialize": "flow.set('ff_trained', false);",
         "finalize": "",
         "libs": [],
-        "x": 910,
-        "y": 200,
+        "x": 1130,
+        "y": 800,
         "wires": [
             [
                 "c7f333a3df72780c"
@@ -927,8 +927,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1720,
-        "y": 240,
+        "x": 1940,
+        "y": 840,
         "wires": [
             [
                 "fn_lstm_router"
@@ -947,8 +947,8 @@
         "initialize": "flow.set('lstm_buffer', []);\nflow.set('lstm_trained', false);",
         "finalize": "",
         "libs": [],
-        "x": 1380,
-        "y": 240,
+        "x": 1600,
+        "y": 840,
         "wires": [
             [
                 "nn_lstm"
@@ -967,8 +967,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1670,
-        "y": 120,
+        "x": 1890,
+        "y": 720,
         "wires": [
             [
                 "ui_panel_ff"
@@ -987,8 +987,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2100,
-        "y": 240,
+        "x": 2320,
+        "y": 840,
         "wires": [
             [
                 "ui_panel_lstm"
@@ -1010,8 +1010,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1860,
-        "y": 120,
+        "x": 2080,
+        "y": 720,
         "wires": [
             []
         ]
@@ -1031,8 +1031,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 2280,
-        "y": 240,
+        "x": 2500,
+        "y": 840,
         "wires": [
             []
         ]
@@ -1049,8 +1049,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1490,
-        "y": 120,
+        "x": 1710,
+        "y": 720,
         "wires": [
             [
                 "fn_ff_result",
@@ -1070,8 +1070,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1920,
-        "y": 240,
+        "x": 2140,
+        "y": 840,
         "wires": [
             [
                 "fn_lstm_result"
@@ -1095,8 +1095,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 1240,
-        "y": 440,
+        "x": 1460,
+        "y": 1040,
         "wires": [
             [
                 "influx_query_lstm_train"
@@ -1114,8 +1114,8 @@
         "precision": "",
         "retentionPolicy": "",
         "org": "ebcd841221694f0a",
-        "x": 1470,
-        "y": 360,
+        "x": 1690,
+        "y": 960,
         "wires": [
             [
                 "fn_build_lstm_train"
@@ -1134,8 +1134,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1720,
-        "y": 360,
+        "x": 1940,
+        "y": 960,
         "wires": [
             [
                 "nn_lstm"
@@ -1154,8 +1154,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1130,
-        "y": 600,
+        "x": 1350,
+        "y": 1200,
         "wires": [
             [
                 "6772e6384334b5de"
@@ -1171,14 +1171,14 @@
         "order": 3,
         "width": "14",
         "height": "5",
-        "format": "<div class=\"nn-panel\">\n  <div class=\"nn-title\">ANÁLISIS GEMINI IA</div>\n  <div class=\"nn-subtitle\">Evaluación médica en tiempo real</div>\n  <div class=\"ollama-response\" ng-bind-html=\"msg.payload\"></div>\n</div>\n<style>\n.nn-panel { padding: 8px; }\n.nn-title { font-size: 13px; font-weight: 600; letter-spacing: 2px; color: #555; text-transform: uppercase; }\n.nn-subtitle { font-size: 11px; color: #999; margin-bottom: 8px; }\n</style>",
+        "format": "<div class=\"ai-panel\">\n  <div class=\"ai-header\">\n    <span class=\"ai-title\">ANÁLISIS GEMINI IA</span>\n    <span class=\"ai-dot\">·</span>\n    <span class=\"ai-subtitle\">Evaluación médica en tiempo real</span>\n  </div>\n  <div class=\"ai-body\" ng-bind-html=\"msg.payload\"></div>\n</div>\n<style>\n.ai-panel { padding: 14px 12px 10px; }\n.ai-header { display:flex; align-items:baseline; gap:8px; margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid #ebebeb; }\n.ai-title { font-size:10px; font-weight:700; letter-spacing:3px; color:#222; text-transform:uppercase; white-space:nowrap; }\n.ai-dot { color:#ccc; font-size:10px; }\n.ai-subtitle { font-size:10px; color:#aaa; }\n.ai-body { overflow-wrap:break-word; word-break:break-word; }\n/* Clases usadas por el nodo función (ng-bind-html permite class pero no style) */\n.s-wrap { text-align:center; padding:2px 0 6px; }\n.s-badge { display:inline-block; border-radius:5px; padding:9px 26px; margin-bottom:10px; }\n.s-danger { background:rgba(220,53,69,0.08); border:1px solid #dc3545; }\n.s-safe { background:rgba(40,167,69,0.08); border:1px solid #28a745; }\n.s-label { font-size:18px; font-weight:700; letter-spacing:5px; display:block; }\n.s-danger .s-label { color:#dc3545; }\n.s-safe .s-label { color:#28a745; }\n.s-text { font-size:13px; color:#555; line-height:1.65; text-align:left; padding:0 2px; display:block; }\n</style>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1740,
-        "y": 560,
+        "x": 2120,
+        "y": 1120,
         "wires": [
             []
         ]
@@ -1193,7 +1193,7 @@
         "customModel": "",
         "customModelType": "str",
         "mode": "single",
-        "prompt": "ROL: Eres un profesional de la salud (paramédico o médico clínico).  CONTEXTO:  La temperatura corporal normal está entre 36.0°C y 37.5°C. Se considera fiebre a partir de 38°C. El pulso normal en reposo está entre 60 y 100 latidos por minuto (lpm).  NOTA MÉDICA: \"Si la temperatura supera los 39°C o el pulso es mayor a 120 lpm o menor a 50 lpm, se considera una situación de riesgo que requiere atención inmediata.\"  DATOS ACTUALES:  Temperatura: {{temperatura}} °C Pulso: {{pulso}} lpm  TAREA:  Decide si el estado es \"PELIGRO\" o \"NORMAL\" basándote en la nota médica. Si es PELIGRO, redacta un reporte breve indicando posibles causas y recomendación urgente. Si es NORMAL, redacta un estado general breve indicando que los valores están dentro de rangos aceptables.  FORMATO DE SALIDA: Tu respuesta debe empezar SIEMPRE con: \"ESTADO: PELIGRO\" o \"ESTADO: NORMAL\" y luego el reporte en un párrafo nuevo. ",
+        "prompt": "ROL: Eres un profesional de la salud (paramédico o médico clínico).CONTEXTO: La temperatura corporal normal está entre 36.0°C y 37.5°C. Se considera fiebre a partir de 38°C. El pulso normal en reposo está entre 60 y 100 latidos por minuto (lpm).NOTA MÉDICA: Si la temperatura supera los 39°C o el pulso es mayor a 120 lpm o menor a 50 lpm, se considera una situación de riesgo que requiere atención inmediata.DATOS ACTUALES:Temperatura: {{temperatura}} °CPulso: {{pulso}} lpmTAREA: Decide si el estado es \"PELIGRO\" o \"NORMAL\" basándote en la nota médica. Si es PELIGRO, redacta un reporte breve indicando posibles causas y recomendación urgente. Si es NORMAL, redacta un estado general breve indicando que los valores están dentro de rangos aceptables.FORMATO DE SALIDA: Empieza SIEMPRE con \"ESTADO: PELIGRO\" o \"ESTADO: NORMAL\", luego un salto de línea y el reporte en un párrafo. Máximo 5 líneas en total.",
         "promptType": "str",
         "multimodalInputsData": "[]",
         "grounding": false,
@@ -1221,11 +1221,11 @@
         "responseFormat": "text",
         "schemaPropertiesData": "[]",
         "enumValues": "",
-        "x": 1540,
-        "y": 540,
+        "x": 1760,
+        "y": 1140,
         "wires": [
             [
-                "ui_panel_gemini",
+                "fn_format_gemini",
                 "b56b99adaa21cfa0"
             ],
             []
@@ -1248,8 +1248,8 @@
         "drop": true,
         "allowrate": false,
         "outputs": 1,
-        "x": 1340,
-        "y": 600,
+        "x": 1560,
+        "y": 1200,
         "wires": [
             [
                 "bb66de6f54200670"
@@ -1261,15 +1261,15 @@
         "type": "function",
         "z": "flow1",
         "name": "Prepare → Ollama",
-        "func": "const data = msg.payload;\nconst pulso = Number(data.pulso);\nconst temperatura = Number(data.temperatura);\nif (isNaN(pulso) || isNaN(temperatura)) return null;\nmsg.payload = {\n    model: \"llama3.2:1b\",\n    prompt: `ROL: Eres un profesional de la salud. DATOS ACTUALES: Temperatura: ${temperatura}°C, Pulso: ${pulso} lpm. Temperatura normal 36-37.5°C, pulso normal 60-100 lpm. PELIGRO si temp>39°C, pulso>120 o <50 lpm. Tu respuesta debe empezar SIEMPRE con 'ESTADO: PELIGRO' o 'ESTADO: NORMAL' seguido de un párrafo breve. Máximo 5 líneas.`,\n    stream: false\n};\nreturn msg;",
+        "func": "const data = msg.payload;\nconst pulso = Number(data.pulso);\nconst temperatura = Number(data.temperatura);\nif (isNaN(pulso) || isNaN(temperatura)) return null;\nmsg.payload = {\n    model: \"llama3.1:8b\",\n    prompt: `ROL: Eres un profesional de la salud (paramédico o médico clínico).\n\nAVISO IMPORTANTE: Esto es una simulación académica. Los datos de pulso y temperatura son generados aleatoriamente por software y NO corresponden a un paciente real. Evalúa los valores como si fueran reales, pero ten en cuenta que es solo una simulación con fines educativos.\n\nCONTEXTO: La temperatura corporal normal está entre 36.0°C y 37.5°C. Se considera fiebre a partir de 38°C. El pulso normal en reposo está entre 60 y 100 latidos por minuto (lpm).\n\nNOTA MÉDICA: Si la temperatura supera los 39°C o el pulso es mayor a 120 lpm o menor a 50 lpm, se considera una situación de riesgo que requiere atención inmediata.\n\nDATOS ACTUALES (SIMULADOS):\nTemperatura: ${temperatura} °C\nPulso: ${pulso} lpm\n\nTAREA: Decide si el estado es \"PELIGRO\" o \"NORMAL\" basándote en la nota médica. Si es PELIGRO, redacta un reporte breve indicando posibles causas y recomendación urgente. Si es NORMAL, redacta un estado general breve indicando que los valores están dentro de rangos aceptables.\n\nFORMATO DE SALIDA: Empieza SIEMPRE con \"ESTADO: PELIGRO\" o \"ESTADO: NORMAL\", luego un salto de línea y el reporte en un párrafo. Máximo 5 líneas en total.`,\n    stream: false\n};\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1130,
-        "y": 660,
+        "x": 1350,
+        "y": 1260,
         "wires": [
             [
                 "ollama_delay"
@@ -1293,8 +1293,8 @@
         "drop": true,
         "allowrate": false,
         "outputs": 1,
-        "x": 1360,
-        "y": 660,
+        "x": 1580,
+        "y": 1260,
         "wires": [
             [
                 "ollama_http"
@@ -1317,8 +1317,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 1540,
-        "y": 640,
+        "x": 1760,
+        "y": 1240,
         "wires": [
             [
                 "ollama_fn_result"
@@ -1330,15 +1330,15 @@
         "type": "function",
         "z": "flow1",
         "name": "Ollama → Panel",
-        "func": "if (!msg.payload || !msg.payload.response) return null;\nmsg.payload = msg.payload.response;\nreturn msg;",
+        "func": "if (!msg.payload || !msg.payload.response) return null;\nconst text = msg.payload.response.trim();\nconst isPeligro = text.indexOf('PELIGRO') >= 0;\nconst estado = isPeligro ? 'PELIGRO' : 'NORMAL';\nconst cls = isPeligro ? 'danger' : 'safe';\nconst firstNl = text.indexOf('\\n');\nconst explanation = firstNl >= 0 ? text.slice(firstNl + 1).trim() : text;\nmsg.payload = '<div class=\"s-wrap\">'\n  + '<div class=\"s-badge s-' + cls + '\"><span class=\"s-label\">' + estado + '</span></div>'\n  + (explanation ? '<span class=\"s-text\">' + explanation + '</span>' : '')\n  + '</div>';\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1720,
-        "y": 680,
+        "x": 1940,
+        "y": 1280,
         "wires": [
             [
                 "ollama_ui_panel",
@@ -1355,14 +1355,14 @@
         "order": 4,
         "width": "14",
         "height": "5",
-        "format": "<div class=\"nn-panel\">\n  <div class=\"nn-title\">ANÁLISIS OLLAMA IA (LOCAL)</div>\n  <div class=\"nn-subtitle\">Evaluación médica local - llama3.2:1b</div>\n  <div class=\"ollama-response\" ng-bind-html=\"msg.payload\"></div>\n</div>\n<style>\n.nn-panel { padding: 8px; }\n.nn-title { font-size: 13px; font-weight: 600; letter-spacing: 2px; color: #555; text-transform: uppercase; }\n.nn-subtitle { font-size: 11px; color: #999; margin-bottom: 8px; }\n</style>",
+        "format": "<div class=\"ai-panel\">\n  <div class=\"ai-header\">\n    <span class=\"ai-title\">ANÁLISIS OLLAMA IA (LOCAL)</span>\n    <span class=\"ai-dot\">·</span>\n    <span class=\"ai-subtitle\">Evaluación médica local · llama3.1:8b</span>\n  </div>\n  <div class=\"ai-body\" ng-bind-html=\"msg.payload\"></div>\n</div>\n<style>\n.ai-panel { padding: 14px 12px 10px; }\n.ai-header { display:flex; align-items:baseline; gap:8px; margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid #ebebeb; }\n.ai-title { font-size:10px; font-weight:700; letter-spacing:3px; color:#222; text-transform:uppercase; white-space:nowrap; }\n.ai-dot { color:#ccc; font-size:10px; }\n.ai-subtitle { font-size:10px; color:#aaa; }\n.ai-body { overflow-wrap:break-word; word-break:break-word; }\n/* Clases usadas por el nodo función (ng-bind-html permite class pero no style) */\n.s-wrap { text-align:center; padding:2px 0 6px; }\n.s-badge { display:inline-block; border-radius:5px; padding:9px 26px; margin-bottom:10px; }\n.s-danger { background:rgba(220,53,69,0.08); border:1px solid #dc3545; }\n.s-safe { background:rgba(40,167,69,0.08); border:1px solid #28a745; }\n.s-label { font-size:18px; font-weight:700; letter-spacing:5px; display:block; }\n.s-danger .s-label { color:#dc3545; }\n.s-safe .s-label { color:#28a745; }\n.s-text { font-size:13px; color:#555; line-height:1.65; text-align:left; padding:0 2px; display:block; }\n</style>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1940,
-        "y": 680,
+        "x": 2160,
+        "y": 1280,
         "wires": [
             []
         ]
@@ -1379,8 +1379,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1900,
-        "y": 620,
+        "x": 2120,
+        "y": 1220,
         "wires": []
     },
     {
@@ -1395,8 +1395,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1700,
-        "y": 500,
+        "x": 1920,
+        "y": 1100,
         "wires": []
     },
     {
@@ -1416,8 +1416,8 @@
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 370,
-        "y": 180,
+        "x": 590,
+        "y": 780,
         "wires": [
             [
                 "fn_extract"
@@ -1436,8 +1436,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1710,
-        "y": 40,
+        "x": 1930,
+        "y": 640,
         "wires": [
             [
                 "delay_email_rate"
@@ -1461,8 +1461,8 @@
         "drop": true,
         "allowrate": false,
         "outputs": 1,
-        "x": 1910,
-        "y": 40,
+        "x": 2130,
+        "y": 640,
         "wires": [
             [
                 "email_send"
@@ -1478,9 +1478,183 @@
         "secure": true,
         "tls": true,
         "name": "${ALERT_EMAIL_TO}",
-        "x": 2110,
-        "y": 40,
+        "x": 2330,
+        "y": 640,
         "wires": []
+    },
+    {
+        "id": "fn_format_gemini",
+        "type": "function",
+        "z": "flow1",
+        "name": "Formato Gemini",
+        "func": "const text = (msg.payload || '').trim();\nconst isPeligro = text.indexOf('PELIGRO') >= 0;\nconst estado = isPeligro ? 'PELIGRO' : 'NORMAL';\nconst cls = isPeligro ? 'danger' : 'safe';\nconst firstNl = text.indexOf('\\n');\nconst explanation = firstNl >= 0 ? text.slice(firstNl + 1).trim() : '';\nmsg.payload = '<div class=\"s-wrap\">'\n  + '<div class=\"s-badge s-' + cls + '\"><span class=\"s-label\">' + estado + '</span></div>'\n  + (explanation ? '<span class=\"s-text\">' + explanation + '</span>' : '')\n  + '</div>';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1920,
+        "y": 1140,
+        "wires": [
+            [
+                "ui_panel_gemini"
+            ]
+        ]
+    },
+    {
+        "id": "mqtt_caida",
+        "type": "mqtt in",
+        "z": "flow1",
+        "name": "Subscribe Caída",
+        "topic": "biometrico/caida",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "mqtt_broker_local",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1270,
+        "y": 500,
+        "wires": [
+            [
+                "fn_caida_extract"
+            ]
+        ]
+    },
+    {
+        "id": "fn_caida_extract",
+        "type": "function",
+        "z": "flow1",
+        "name": "Validar Token Caída",
+        "func": "const secret = env.get('MQTT_SECRET_TOKEN');\nlet parsed;\nif (typeof msg.payload === 'object' && msg.payload !== null) {\n    parsed = msg.payload;\n} else {\n    try { parsed = JSON.parse(msg.payload); } catch(e) { return null; }\n}\nif (!parsed || parsed.t !== secret) return null;\n\nif (parsed.v === 1) {\n    msg.timestamp = new Date().toLocaleTimeString('es-AR');\n    msg.topic = 'ALERTA DE CAÍDA';\n    msg.payload = '⚠ Caída detectada a las ' + msg.timestamp;\n    return [msg, null];\n}\n\nif (parsed.v === 0) {\n    msg.payload = '';\n    return [null, msg];\n}\n\nreturn null;",
+        "outputs": 2,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1510,
+        "y": 500,
+        "wires": [
+            [
+                "fn_caida_alert",
+                "fn_caida_email"
+            ],
+            [
+                "ui_panel_caida"
+            ]
+        ]
+    },
+    {
+        "id": "fn_caida_alert",
+        "type": "function",
+        "z": "flow1",
+        "name": "Formato Panel Caída",
+        "func": "const hora = msg.timestamp || new Date().toLocaleTimeString('es-AR');\nmsg.payload = hora;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1780,
+        "y": 460,
+        "wires": [
+            [
+                "ui_panel_caida"
+            ]
+        ]
+    },
+    {
+        "id": "ui_panel_caida",
+        "type": "ui_template",
+        "z": "flow1",
+        "group": "group_sensors",
+        "name": "Panel Caída",
+        "order": 3,
+        "width": "14",
+        "height": "2",
+        "format": "<div class=\"cf-panel\">\n  <div class=\"cf-title\">DETECTOR DE CAÍDA</div>\n  <div ng-if=\"msg.payload\" class=\"cf-alert-danger\">\n    <strong class=\"cf-label\">⚠ CAÍDA DETECTADA</strong>\n    <p class=\"cf-time\">\\u00daltima detección: {{msg.payload}}</p>\n  </div>\n  <div ng-if=\"!msg.payload\" class=\"cf-alert-normal\">\n    <strong class=\"cf-normal-label\">✓ NORMAL</strong>\n  </div>\n</div>\n<style>\n.cf-panel { padding: 6px; }\n.cf-title { font-size: 11px; font-weight: 700; letter-spacing: 3px; color: #888; text-transform: uppercase; text-align: center; margin-bottom: 6px; }\n.cf-alert-danger { text-align: center; background: rgba(220,53,69,0.08); border: 1px solid #dc3545; border-radius: 6px; padding: 8px 12px; }\n.cf-label { font-size: 18px; font-weight: 700; color: #dc3545; letter-spacing: 1px; display: block; }\n.cf-time { font-size: 13px; color: #555; font-weight: 600; margin: 6px 0 0; }\n.cf-alert-normal { text-align: center; background: rgba(40,167,69,0.08); border: 1px solid #28a745; border-radius: 6px; padding: 8px 12px; }\n.cf-normal-label { font-size: 18px; font-weight: 700; color: #28a745; letter-spacing: 1px; display: block; }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 2010,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fn_caida_email",
+        "type": "function",
+        "z": "flow1",
+        "name": "Preparar Email Caída",
+        "func": "const hora = msg.timestamp || new Date().toLocaleTimeString('es-AR');\nconst to = env.get('ALERT_EMAIL_TO');\nif (!to) return null;\nmsg.to = to;\nmsg.topic = 'ALERTA CRÍTICA: Caída detectada';\nmsg.payload = 'ALERTA BIOMÉTRICA - CAÍDA LIBRE\\n\\n'\n  + 'Se detectó una caída a las ' + hora + '\\n'\n  + 'El paciente puede requerir atención inmediata.\\n\\n'\n  + 'Revisar el dashboard de monitoreo biométrico.';\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1760,
+        "y": 540,
+        "wires": [
+            [
+                "delay_caida_email"
+            ]
+        ]
+    },
+    {
+        "id": "delay_caida_email",
+        "type": "delay",
+        "z": "flow1",
+        "name": "Max 1 email / 10min",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "10",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 2020,
+        "y": 540,
+        "wires": [
+            [
+                "email_send"
+            ]
+        ]
+    },
+    {
+        "id": "inject_caida_init",
+        "type": "inject",
+        "z": "flow1",
+        "name": "Estado inicial NORMAL",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 1770,
+        "y": 400,
+        "wires": [
+            [
+                "ui_panel_caida"
+            ]
+        ]
     },
     {
         "id": "05ca4849c0b0b0e0",

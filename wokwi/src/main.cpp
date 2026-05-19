@@ -7,6 +7,7 @@
 #include <LiquidCrystal_I2C.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
+#include <MPU6050.h>
 
 // --- PROTOTIPOS DE FUNCIONES (Esto le avisa al compilador que existen) ---
 void mostrarSaludoElegante();
@@ -15,6 +16,7 @@ void mostrarFraseDelDia();
 void mostrarInfoSistema();
 void reconnect();
 int generarPulsoHumano();
+bool detectarCaida();
 
 // Configuración del LCD: Dirección 0x27, 20 columnas y 4 filas
 LiquidCrystal_I2C lcd(0x27, 20, 4);
@@ -51,14 +53,20 @@ const char *password = "";
 const char *mqtt_server = "192.168.1.9"; //colocar la ip de la red local para el container de mosquitto
 #define MQTT_BASE_TOPIC "biometrico"
 #define MQTT_SECRET_TOKEN "06e68bebe774b5b382ae5522de1ee267"
-const char *pulse_topic = MQTT_BASE_TOPIC "/pulso";
+const char *pulse_topic       = MQTT_BASE_TOPIC "/pulso";
 const char *temperature_topic = MQTT_BASE_TOPIC "/temperatura";
+const char *fall_topic        = MQTT_BASE_TOPIC "/caida";
+
+// --- Umbral caída ---
+#define FREE_FALL_THRESHOLD_G 0.5f   // g — por debajo = caída libre
+#define IMPACT_THRESHOLD_G    2.0f   // g — por encima tras caída libre = impacto
 
 // --- Pines ---
 const int pinLed = 12;
 
 WiFiClient espClient;
 PubSubClient client(espClient);
+MPU6050 mpu;
 unsigned long ultimoEvento = 0;
 
 void setup()
@@ -67,6 +75,15 @@ void setup()
   pinMode(pinLed, OUTPUT);
   digitalWrite(pinLed, LOW);
   temperatureSensor.begin();
+
+  // Inicializar MPU6050
+  mpu.initialize();
+  if (!mpu.testConnection()) {
+    Serial.println("MPU6050 no encontrado");
+  } else {
+    Serial.println("MPU6050: OK");
+  }
+
   // 1. Inicializar OLED (Dirección 0x3C es la estándar en Wokwi)
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C))
   {
@@ -130,6 +147,28 @@ void loop()
   client.loop();
 
   unsigned long ahora = millis();
+
+  // Detección de caída (cada ciclo, alta frecuencia de muestreo)
+  if (detectarCaida()) {
+    digitalWrite(pinLed, HIGH);
+    Serial.println("!!! CAIDA DETECTADA !!!");
+
+    display.clearDisplay();
+    display.setTextSize(2);
+    display.setCursor(0, 5);
+    display.println("!! CAIDA !!");
+    display.setTextSize(1);
+    display.setCursor(0, 45);
+    display.println("Alerta enviada");
+    display.display();
+
+    char fallMsg[80];
+    snprintf(fallMsg, sizeof(fallMsg), "{\"t\":\"" MQTT_SECRET_TOKEN "\",\"v\":1}");
+    client.publish(fall_topic, fallMsg);
+
+    delay(5000);
+    digitalWrite(pinLed, LOW);
+  }
 
   // Rotación de diferentes pantallas de información
   // mostrarRelojSimulado();
@@ -291,6 +330,31 @@ void mostrarInfoSistema()
   lcd.print("WiFi: Buscando...");
   lcd.setCursor(0, 2);
   lcd.print("CPU Temp: 42 C");
+}
+
+// Detección de caída: fase libre (|a| < 0.5g) seguida de impacto (|a| > 2g)
+bool detectarCaida() {
+  static bool enCaidaLibre = false;
+
+  int16_t ax, ay, az;
+  mpu.getAcceleration(&ax, &ay, &az);
+
+  float ax_g = ax / 16384.0f;
+  float ay_g = ay / 16384.0f;
+  float az_g = az / 16384.0f;
+  float magnitud = sqrtf(ax_g * ax_g + ay_g * ay_g + az_g * az_g);
+
+  Serial.printf("IMU: %.2fg %.2fg %.2fg |%.2fg|\n", ax_g, ay_g, az_g, magnitud);
+
+  if (magnitud < FREE_FALL_THRESHOLD_G) {
+    enCaidaLibre = true;
+  } else if (enCaidaLibre && magnitud > IMPACT_THRESHOLD_G) {
+    enCaidaLibre = false;
+    return true;
+  } else if (magnitud >= FREE_FALL_THRESHOLD_G && magnitud <= 1.5f) {
+    enCaidaLibre = false;  // volvió a reposo normal sin impacto
+  }
+  return false;
 }
 
 // Simula pulso humano: deriva gradual + 3 tipos de arritmia
